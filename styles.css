@@ -1,0 +1,118 @@
+/* Minimal reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: #000;
+  color: #ddd;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Container */
+.slider {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  touch-action: pan-y pinch-zoom; /* Allow vertical scroll on iOS overlays; horizontal handled in JS */
+}
+
+/* Slides: layered for fade effect */
+.slides {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: stretch;
+  isolation: isolate; /* ensure proper stacking context */
+  user-select: none;
+}
+
+/* Each slide */
+.slide {
+  position: absolute;
+  inset: 0;
+  background: #000 center center / cover no-repeat;
+  opacity: 0;
+  transition: opacity 500ms ease;
+  will-change: opacity;
+}
+.slide.active {
+  opacity: 1;
+}
+
+/* Nav buttons */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(36px, 5vw, 56px);
+  height: clamp(36px, 5vw, 56px);
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: rgba(20,20,20,0.6);
+  color: #eee;
+  font-size: clamp(22px, 3.5vw, 30px);
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-tap-highlight-color: transparent;
+}
+.nav:hover { background: rgba(30,30,30,0.8); }
+.prev { left: clamp(8px, 2vw, 18px); }
+.next { right: clamp(8px, 2vw, 18px); }
+
+/* Pagination dots */
+.pagination {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 3vh, 28px);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 6px 10px;
+  background: rgba(0,0,0,.28);
+  border: 1px solid #222;
+  border-radius: 999px;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4b4b4b;
+  opacity: .6;
+}
+.dot.active { background: #e5e5e5; opacity: 1; }
+
+/* Caption and counter */
+.info {
+  position: absolute;
+  left: clamp(10px, 3vw, 24px);
+  bottom: clamp(10px, 3vh, 24px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(12px, 1.8vw, 14px);
+  color: #ddd;
+  letter-spacing: .02em;
+  background: rgba(0,0,0,.34);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #222;
+}
+#caption { color: #f0f0f0; }
+#counter { color: #aaa; }
+
+/* iOS Safe Area */
+@supports(padding: max(0px)) {
+  .prev { left: max(12px, env(safe-area-inset-left)); }
+  .next { right: max(12px, env(safe-area-inset-right)); }
+  .pagination { bottom: max(14px, env(safe-area-inset-bottom)); }
+  .info { bottom: max(10px, env(safe-area-inset-bottom)); left: max(10px, env(safe-area-inset-left)); }
+}
+
+/* Prefer-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: none; }
+}

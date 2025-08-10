@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Fullscreen Portfolio — Seoul Night Series</title>
+  <meta name="theme-color" content="#000000" />
+  <link rel="preload" as="image" href="images/01.jpg">
+  <link rel="preload" as="image" href="images/02.jpg">
+  <link rel="preload" as="image" href="images/03.jpg">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="slider" aria-label="Fullscreen photo slideshow">
+    <div class="slides" id="slides" role="group" aria-live="polite"></div>
+
+    <button class="nav prev" id="prev" aria-label="Previous image" title="Previous">‹</button>
+    <button class="nav next" id="next" aria-label="Next image" title="Next">›</button>
+
+    <div class="pagination" id="pagination" aria-hidden="true"></div>
+
+    <div class="info" id="info">
+      <span id="caption"></span>
+      <span id="counter" aria-hidden="true"></span>
+    </div>
+  </main>
+
+  <script>
+    // Configure your slides here. Replace with your real photos later if desired.
+    window.SLIDES = [
+      { src: "images/01.jpg", alt: "Seoul skyline at night with Namsan Tower", caption: "Namsan Tower — City Lights" },
+      { src: "images/02.jpg", alt: "Han River at night with bridge reflections", caption: "Han River — Bridges & Reflections" },
+      { src: "images/03.jpg", alt: "Dongdaemun Design Plaza at night", caption: "DDP — Night Curves" }
+    ];
+
+    // Player options
+    window.PLAYER_OPTIONS = {
+      autoplay: true,
+      interval: 5000,     // 5 seconds
+      pauseOnHover: true,
+      pauseOnInteraction: true,
+      fadeDuration: 500   // CSS transition should match
+    };
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
