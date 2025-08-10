@@ -1,47 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Fullscreen Portfolio — Seoul Night Series</title>
-  <meta name="theme-color" content="#000000" />
-  <link rel="preload" as="image" href="images/01.jpg">
-  <link rel="preload" as="image" href="images/02.jpg">
-  <link rel="preload" as="image" href="images/03.jpg">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Portfolio — Minimal Dark</title>
+<meta name="theme-color" content="#000000" />
+<link rel="preload" as="image" href="assets/banner.jpg">
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="slider" aria-label="Fullscreen photo slideshow">
-    <div class="slides" id="slides" role="group" aria-live="polite"></div>
+  <header class="topbar">
+    <nav class="nav">
+      <a href="#about">About Me</a>
+      <a href="#skills">My skills</a>
+      <a href="#projects">My projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-    <button class="nav prev" id="prev" aria-label="Previous image" title="Previous">‹</button>
-    <button class="nav next" id="next" aria-label="Next image" title="Next">›</button>
-
-    <div class="pagination" id="pagination" aria-hidden="true"></div>
-
-    <div class="info" id="info">
-      <span id="caption"></span>
-      <span id="counter" aria-hidden="true"></span>
+  <section class="hero" id="home" aria-label="Hero">
+    <img class="hero-bg" src="assets/banner.jpg" alt="Banner background"/>
+    <div class="hero-content">
+      <h1 id="name">Your Name.</h1>
+      <p id="title">Web Developer • Photography Enthusiast</p>
     </div>
+  </section>
+
+  <main>
+    <section id="about" class="section">
+      <h2>About Me</h2>
+      <p id="aboutText">
+        Placeholder about text. Replace in data.json.
+      </p>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>My skills</h2>
+      <div class="skills" id="skillsGrid"></div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2>My Projects</h2>
+      <div id="projectsGrid" class="projects"></div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="contact" id="contactBox"></div>
+    </section>
   </main>
 
-  <script>
-    // Configure your slides here. Replace with your real photos later if desired.
-    window.SLIDES = [
-      { src: "images/01.jpg", alt: "Seoul skyline at night with Namsan Tower", caption: "Namsan Tower — City Lights" },
-      { src: "images/02.jpg", alt: "Han River at night with bridge reflections", caption: "Han River — Bridges & Reflections" },
-      { src: "images/03.jpg", alt: "Dongdaemun Design Plaza at night", caption: "DDP — Night Curves" }
-    ];
+  <footer class="footer">
+    <small>© <span id="year"></span> Your Name</small>
+  </footer>
 
-    // Player options
-    window.PLAYER_OPTIONS = {
-      autoplay: true,
-      interval: 5000,     // 5 seconds
-      pauseOnHover: true,
-      pauseOnInteraction: true,
-      fadeDuration: 500   // CSS transition should match
-    };
-  </script>
   <script src="script.js"></script>
 </body>
 </html>
