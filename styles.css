@@ -24,7 +24,7 @@ a:hover{text-decoration:underline}
 .nav a{color:#e9edf6;font-weight:500}
 
 .hero{
-  position:relative;height:64vh;min-height:420px;display:grid;place-items:center;
+  position:relative;height:32vh;min-height:210px;display:grid;place-items:center;
   border-bottom:1px solid var(--border);
 }
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.9)}
