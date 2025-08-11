@@ -1,6 +1,6 @@
 {
-  "name": "Your Name",
-  "title": "Web Developer \u2022 Photography Enthusiast",
+  "name": "J K",
+  "title": "Portfolio",
   "about": "Based in Your City. Passionate about web development and photography. Write a short introduction here. This template mirrors the structure of the reference site without copying its content.",
   "skills": [
     {
@@ -84,8 +84,7 @@
   ],
   "contact": {
     "email": "you@example.com",
-    "phone": "+1 (000) 000-0000",
-    "address": "123 Your Street, Your City",
+
     "links": [
       {
         "label": "CV",
@@ -94,10 +93,6 @@
       {
         "label": "LinkedIn",
         "href": "https://linkedin.com/in/yourid"
-      },
-      {
-        "label": "GitHub",
-        "href": "https://github.com/yourid"
       },
       {
         "label": "CodePen",
