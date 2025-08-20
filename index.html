@@ -3,57 +3,121 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Portfolio — Minimal Dark</title>
+<title>Animated Oscar Winners — Portfolio</title>
 <meta name="theme-color" content="#000000" />
-<link rel="preload" as="image" href="assets/banner.jpg">
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <nav class="nav">
-      <a href="#about">About Me</a>
-      <a href="#skills">My skills</a>
-      <a href="#projects">My projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="header">
+    <div class="wrap">
+      <h1>Animated Oscar Winners</h1>
+    </div>
   </header>
 
-  <section class="hero" id="home" aria-label="Hero">
-    <img class="hero-bg" src="assets/banner.jpg" alt="Banner background"/>
-    <div class="hero-content">
-      <h1 id="name">Your Name.</h1>
-      <p id="title">Web Developer • Photography Enthusiast</p>
+  <main class="main">
+    <div class="cats" role="tablist" aria-label="Providers">
+      <button class="chip active" data-filter="ALL" role="tab" aria-selected="true">ALL</button>
+      <button class="chip" data-filter="YOUTUBE" role="tab" aria-selected="false">YOUTUBE</button>
     </div>
-  </section>
 
-  <main>
-    <section id="about" class="section">
-      <h2>About Me</h2>
-      <p id="aboutText">
-        Placeholder about text. Replace in data.json.
-      </p>
-    </section>
-
-    <section id="skills" class="section">
-      <h2>My skills</h2>
-      <div class="skills" id="skillsGrid"></div>
-    </section>
-
-    <section id="projects" class="section">
-      <h2>My Projects</h2>
-      <div id="projectsGrid" class="projects"></div>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <div class="contact" id="contactBox"></div>
-    </section>
+    <div class="grid" id="grid" aria-live="polite">
+      
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/t5khm-VjEu4"
+               data-title="The Boy and the Heron — Trailer">
+        <img src="assets/posters/poster1.jpg" alt="The Boy and the Heron poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>The Boy and the Heron</h3><p>2023 (Oscar 2024)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/GAp2_0JJskk"
+               data-title="Spirited Away — Trailer">
+        <img src="assets/posters/poster2.jpg" alt="Spirited Away poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Spirited Away</h3><p>2001 (Oscar 2003)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/tg52up16eq0"
+               data-title="Spider-Verse — Trailer">
+        <img src="assets/posters/poster3.jpg" alt="Spider-Verse poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Spider-Verse</h3><p>2018 (Oscar 2019)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/yRUAzGQ3nSY"
+               data-title="Inside Out — Trailer">
+        <img src="assets/posters/poster4.jpg" alt="Inside Out poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Inside Out</h3><p>2015 (Oscar 2016)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/xlnPHQ3TLX8"
+               data-title="Coco — Trailer">
+        <img src="assets/posters/poster5.jpg" alt="Coco poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Coco</h3><p>2017 (Oscar 2018)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/TbQm5doF_Uc"
+               data-title="Frozen — Trailer">
+        <img src="assets/posters/poster6.jpg" alt="Frozen poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Frozen</h3><p>2013 (Oscar 2014)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/jWM0ct-OLsM"
+               data-title="Zootopia — Trailer">
+        <img src="assets/posters/poster7.jpg" alt="Zootopia poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Zootopia</h3><p>2016 (Oscar 2017)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/SPHfeNgogVs"
+               data-title="Finding Nemo — Trailer">
+        <img src="assets/posters/poster8.jpg" alt="Finding Nemo poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Finding Nemo</h3><p>2003 (Oscar 2004)</p></div>
+      </article>
+    
+      <article class="card" role="button" tabindex="0"
+               data-provider="youtube" data-type="video"
+               data-embed="https://www.youtube.com/embed/2BlMNH1QTeE"
+               data-title="Toy Story 3 — Trailer">
+        <img src="assets/posters/poster9.jpg" alt="Toy Story 3 poster" loading="lazy" width="900" height="1300">
+        <div class="meta"><h3>Toy Story 3</h3><p>2010 (Oscar 2011)</p></div>
+      </article>
+    
+    </div>
   </main>
 
+  <!-- Lightbox Modal with Prev/Next + Swipe -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Preview</div>
+        <div class="modal-actions">
+          <button class="modal-nav" id="modalPrev" aria-label="Previous item">‹</button>
+          <button class="modal-nav" id="modalNext" aria-label="Next item">›</button>
+          <button class="modal-close" id="modalClose" aria-label="Close">Close</button>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <iframe id="lightVideo" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
-    <small>© <span id="year"></span> Your Name</small>
+    <small>Click any poster or title to play the trailer</small>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
