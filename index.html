@@ -1,123 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Animated Oscar Winners — Portfolio</title>
-<meta name="theme-color" content="#000000" />
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Posters</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; background:#111; color:#fff; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; padding:20px; }
+    .card { position:relative; cursor:pointer; }
+    .card img { width:100%; height:auto; border-radius:8px; transition: transform 0.3s; }
+    .card:hover img { transform:scale(1.05); }
+    .lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
+    .lightbox-content { position:relative; max-width:90%; max-height:90%; }
+    .lightbox-content iframe, .lightbox-content img { width:100%; height:auto; border-radius:8px; }
+    .close { position:absolute; top:10px; right:20px; font-size:30px; color:#fff; cursor:pointer; }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="wrap">
-      <h1>Animated Oscar Winners</h1>
+  <h1 style="text-align:center; padding:20px;">Animated Film Posters</h1>
+  <div class="grid">
+    <div class="card" data-video="https://www.youtube.com/embed/tg52up16eq0">
+      <img src="assets/posters/poster01.jpg" alt="Poster 1">
     </div>
-  </header>
-
-  <main class="main">
-    <div class="cats" role="tablist" aria-label="Providers">
-      <button class="chip active" data-filter="ALL" role="tab" aria-selected="true">ALL</button>
-      <button class="chip" data-filter="YOUTUBE" role="tab" aria-selected="false">YOUTUBE</button>
+    <div class="card" data-video="https://www.youtube.com/embed/TbQm5doF_Uc">
+      <img src="assets/posters/poster02.jpg" alt="Poster 2">
     </div>
-
-    <div class="grid" id="grid" aria-live="polite">
-      
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/t5khm-VjEu4"
-               data-title="The Boy and the Heron — Trailer">
-        <img src="assets/posters/poster1.jpg" alt="The Boy and the Heron poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>The Boy and the Heron</h3><p>2023 (Oscar 2024)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/GAp2_0JJskk"
-               data-title="Spirited Away — Trailer">
-        <img src="assets/posters/poster2.jpg" alt="Spirited Away poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Spirited Away</h3><p>2001 (Oscar 2003)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/tg52up16eq0"
-               data-title="Spider-Verse — Trailer">
-        <img src="assets/posters/poster3.jpg" alt="Spider-Verse poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Spider-Verse</h3><p>2018 (Oscar 2019)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/yRUAzGQ3nSY"
-               data-title="Inside Out — Trailer">
-        <img src="assets/posters/poster4.jpg" alt="Inside Out poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Inside Out</h3><p>2015 (Oscar 2016)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/xlnPHQ3TLX8"
-               data-title="Coco — Trailer">
-        <img src="assets/posters/poster5.jpg" alt="Coco poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Coco</h3><p>2017 (Oscar 2018)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/TbQm5doF_Uc"
-               data-title="Frozen — Trailer">
-        <img src="assets/posters/poster6.jpg" alt="Frozen poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Frozen</h3><p>2013 (Oscar 2014)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/jWM0ct-OLsM"
-               data-title="Zootopia — Trailer">
-        <img src="assets/posters/poster7.jpg" alt="Zootopia poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Zootopia</h3><p>2016 (Oscar 2017)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/SPHfeNgogVs"
-               data-title="Finding Nemo — Trailer">
-        <img src="assets/posters/poster8.jpg" alt="Finding Nemo poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Finding Nemo</h3><p>2003 (Oscar 2004)</p></div>
-      </article>
-    
-      <article class="card" role="button" tabindex="0"
-               data-provider="youtube" data-type="video"
-               data-embed="https://www.youtube.com/embed/2BlMNH1QTeE"
-               data-title="Toy Story 3 — Trailer">
-        <img src="assets/posters/poster9.jpg" alt="Toy Story 3 poster" loading="lazy" width="900" height="1300">
-        <div class="meta"><h3>Toy Story 3</h3><p>2010 (Oscar 2011)</p></div>
-      </article>
-    
+    <div class="card" data-video="https://www.youtube.com/embed/TEHWDA_6e3M">
+      <img src="assets/posters/poster03.jpg" alt="Poster 3">
     </div>
-  </main>
-
-  <!-- Lightbox Modal with Prev/Next + Swipe -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <div class="modal-title" id="modalTitle">Preview</div>
-        <div class="modal-actions">
-          <button class="modal-nav" id="modalPrev" aria-label="Previous item">‹</button>
-          <button class="modal-nav" id="modalNext" aria-label="Next item">›</button>
-          <button class="modal-close" id="modalClose" aria-label="Close">Close</button>
-        </div>
-      </div>
-      <div class="modal-body" id="modalBody">
-        <iframe id="lightVideo" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      </div>
+    <div class="card" data-video="https://www.youtube.com/embed/CZ1CATNbXg0">
+      <img src="assets/posters/poster04.jpg" alt="Poster 4">
+    </div>
+    <div class="card" data-video="https://www.youtube.com/embed/ORFWdXl_zJ4">
+      <img src="assets/posters/poster05.jpg" alt="Poster 5">
+    </div>
+    <div class="card" data-video="https://www.youtube.com/embed/JcpWXaA2qeg">
+      <img src="assets/posters/poster06.jpg" alt="Poster 6">
+    </div>
+    <div class="card" data-video="https://www.youtube.com/embed/Ga6RYejo6Hk">
+      <img src="assets/posters/poster07.jpg" alt="Poster 7">
+    </div>
+    <div class="card" data-video="https://www.youtube.com/embed/yRUAzGQ3nSY">
+      <img src="assets/posters/poster08.jpg" alt="Poster 8">
     </div>
   </div>
 
-  <footer class="footer">
-    <small>Click any poster or title to play the trailer</small>
-  </footer>
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content" id="lightbox-content"></div>
+  </div>
 
-  <script src="app.js"></script>
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightbox-content');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const videoUrl = card.getAttribute('data-video');
+        lightbox.style.display = 'flex';
+        lightboxContent.innerHTML = '<iframe src="' + videoUrl + '?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      lightboxContent.innerHTML = '';
+    }
+  </script>
 </body>
 </html>
