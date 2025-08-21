@@ -1,80 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Posters</title>
   <style>
-    body { margin:0; font-family:Arial, sans-serif; background:#111; color:#fff; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; padding:20px; }
-    .card { position:relative; cursor:pointer; }
-    .card img { width:100%; height:auto; border-radius:8px; transition: transform 0.3s; }
-    .card:hover img { transform:scale(1.05); }
-    .lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
-    .lightbox-content { position:relative; max-width:90%; max-height:90%; }
-    .lightbox-content iframe, .lightbox-content img { width:100%; height:auto; border-radius:8px; }
-    .close { position:absolute; top:10px; right:20px; font-size:30px; color:#fff; cursor:pointer; }
+    :root { --bg:#0b0d13; --fg:#eef2f8; --muted:#aab4c8; --panel:#111522; --border:#1a2130; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin:0; font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--fg); }
+
+    h1 { text-align:center; padding:20px 16px; margin:0; font-weight:700; }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; padding:18px 16px 40px; max-width:1200px; margin:0 auto; }
+    .card { position:relative; cursor:pointer; background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    .card img { width:100%; height:auto; display:block; aspect-ratio: 9/13; object-fit:cover; }
+
+    /* Lightbox (bigger video) */
+    .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.88);
+      display:none; align-items:center; justify-content:center; z-index:1000; }
+    .lightbox.open { display:flex; }
+    .lightbox-surface { width:min(1600px, 98vw); max-height:96vh; display:flex; flex-direction:column; }
+    .lightbox-bar { display:flex; justify-content:flex-end; gap:8px; padding:8px 10px; }
+    .close { appearance:none; background:#111523; border:1px solid #263048; color:var(--fg); border-radius:8px; padding:6px 10px; cursor:pointer; font-size:16px; }
+    .close:hover { background:#161b2a; }
+    .lightbox-content { display:flex; align-items:center; justify-content:center; padding:0 10px 12px; }
+    .lightbox-content iframe, .lightbox-content img {
+      width:min(1400px, 98vw);
+      aspect-ratio:16/9;
+      height:auto;
+      max-height:92vh;
+      border:0;
+      border-radius:10px;
+      background:#000;
+      display:block;
+    }
+
+    @media (max-width:640px){
+      .lightbox-surface{ width:100vw; max-height:98vh; }
+      .lightbox-content iframe { width:100vw; max-height:94vh; border-radius:0; }
+    }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center; padding:20px;">Animated Film Posters</h1>
-  <div class="grid">
+  <h1>Animated Film Posters</h1>
+
+  <div class="grid" id="grid">
+    <!-- Replace data-video values with your YouTube/Vimeo links as needed -->
     <div class="card" data-video="https://player.vimeo.com/video/905584986">
-      
-      <img src="assets/posters/poster01.jpg" alt="Poster 1">
+      <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/TbQm5doF_Uc">
-      <img src="assets/posters/poster02.jpg" alt="Poster 2">
+    <div class="card" data-video="https://youtu.be/TbQm5doF_Uc">
+      <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/TEHWDA_6e3M">
-      <img src="assets/posters/poster03.jpg" alt="Poster 3">
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M">
+      <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
     </div>
     <div class="card" data-video="https://www.youtube.com/embed/CZ1CATNbXg0">
-      <img src="assets/posters/poster04.jpg" alt="Poster 4">
+      <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/ORFWdXl_zJ4">
-      <img src="assets/posters/poster05.jpg" alt="Poster 5">
+    <div class="card" data-video="https://www.youtube.com/watch?v=ORFWdXl_zJ4">
+      <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/JcpWXaA2qeg">
-      <img src="assets/posters/poster06.jpg" alt="Poster 6">
+    <div class="card" data-video="https://www.youtube.com/watch?v=JcpWXaA2qeg">
+      <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/Ga6RYejo6Hk">
-      <img src="assets/posters/poster07.jpg" alt="Poster 7">
+    <div class="card" data-video="https://vimeo.com/76979871">
+      <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/yRUAzGQ3nSY">
-      <img src="assets/posters/poster08.jpg" alt="Poster 8">
+    <div class="card" data-video="https://www.youtube.com/shorts/tg52up16eq0">
+      <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/yRUAzGQ3nSY">
-      <img src="assets/posters/poster09.jpg" alt="Poster 8">
+    <div class="card" data-video="https://www.youtube.com/watch?v=yRUAzGQ3nSY">
+      <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/yRUAzGQ3nSY">
-      <img src="assets/posters/poster10.jpg" alt="Poster 8">
-    </div>
-
   </div>
 
-  <div class="lightbox" id="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content" id="lightbox-content"></div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-surface" role="dialog" aria-modal="true" aria-label="Video preview">
+      <div class="lightbox-bar">
+        <button class="close" id="lbClose" aria-label="Close">Close</button>
+      </div>
+      <div class="lightbox-content" id="lightbox-content"></div>
+    </div>
   </div>
 
   <script>
-    const cards = document.querySelectorAll('.card');
+    const grid = document.getElementById('grid');
     const lightbox = document.getElementById('lightbox');
     const lightboxContent = document.getElementById('lightbox-content');
+    const lbClose = document.getElementById('lbClose');
 
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const videoUrl = card.getAttribute('data-video');
-        lightbox.style.display = 'flex';
-        lightboxContent.innerHTML = '<iframe src="' + videoUrl + '?autoplay=1" frameborder="0" allowfullscreen></iframe>';
-      });
+    function toYouTubeEmbed(urlOrId){
+      if(!urlOrId) return null;
+      try{
+        const u = new URL(urlOrId);
+        if(u.hostname.includes('youtu.be')){
+          const id = u.pathname.replace('/','').split(/[?&#]/)[0];
+          return 'https://www.youtube.com/embed/' + id;
+        }
+        if(u.hostname.includes('youtube.com')){
+          if(u.pathname.includes('/watch') && u.searchParams.get('v')){
+            return 'https://www.youtube.com/embed/' + u.searchParams.get('v');
+          }
+          if(u.pathname.includes('/shorts/')){
+            const id = u.pathname.split('/shorts/')[1].split(/[?&#]/)[0];
+            return 'https://www.youtube.com/embed/' + id;
+          }
+          if(u.pathname.includes('/embed/')) return urlOrId;
+        }
+      }catch(e){
+        return 'https://www.youtube.com/embed/' + urlOrId;
+      }
+      return urlOrId;
+    }
+
+    function toVimeoEmbed(url){
+      try{
+        const u = new URL(url);
+        if(u.hostname.includes('vimeo.com')){
+          // player.vimeo.com/video/ID or vimeo.com/ID → normalize
+          if(u.hostname === 'player.vimeo.com'){
+            return url;
+          } else {
+            const id = u.pathname.split('/').filter(Boolean)[0];
+            return 'https://player.vimeo.com/video/' + id;
+          }
+        }
+      }catch(e){}
+      return url;
+    }
+
+    function normalizeEmbed(url){
+      if(!url) return null;
+      const lc = url.toLowerCase();
+      if(lc.includes('youtube.com') || lc.includes('youtu.be')) return toYouTubeEmbed(url);
+      if(lc.includes('vimeo.com')) return toVimeoEmbed(url);
+      return url;
+    }
+
+    function openLightbox(raw){
+      const embed = normalizeEmbed(raw);
+      let src = embed || '';
+      if(src){
+        const params = [
+          'autoplay=1',
+          'rel=0',
+          'modestbranding=1',
+          'playsinline=1',
+          'title=0',
+          'byline=0',
+          'portrait=0'
+        ].join('&');
+        src += (src.includes('?') ? '&' : '?') + params;
+      }
+      lightboxContent.innerHTML = '<iframe src="'+src+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+      lightbox.classList.add('open');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightboxContent.innerHTML = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    grid.addEventListener('click', (e)=>{
+      const card = e.target.closest('.card');
+      if(!card) return;
+      openLightbox(card.getAttribute('data-video'));
     });
 
-    function closeLightbox() {
-      lightbox.style.display = 'none';
-      lightboxContent.innerHTML = '';
-    }
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e)=>{
+      if(!lightbox.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLightbox();
+    });
   </script>
 </body>
 </html>
