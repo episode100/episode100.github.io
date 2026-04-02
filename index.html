@@ -3,36 +3,62 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Jay Han — VFX Compositor</title>
-  
+  <title>J Kim &amp; Compositing Supervisor</title>
+
+  <!-- ── SEO ── -->
+  <meta name="description" content="Jiwoon is a Compositing Supervisor with 20 years in Hollywood VFX and feature animation. Credits include Spider-Man: Into the Spider-Verse, Avatar, and K-Pop Demon Hunters.">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:title"       content="J Kim — Compositor">
+  <meta property="og:description" content="20 years of visual effects. Credits on some of the most celebrated animated films ever made.">
+  <meta property="og:image"       content="https://episode100.github.io/assets/posters/poster01.jpg">
+  <meta property="og:url"         content="https://episode100.github.io/">
+  <meta property="og:type"        content="website">
+  <meta name="twitter:card"       content="summary_large_image">
+
+  <!-- ── JSON-LD ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jay Han",
+    "jobTitle": "Compositing Supervisor",
+    "url": "https://episode100.github.io/",
+    "sameAs": ["https://linkedin.com/in/jayhan"],
+    "knowsAbout": ["Visual Effects","Nuke","Digital Compositing","Stereoscopic VFX","Feature Animation"]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
-      --bg:     #0c0c0c; 
+      --bg:     #0c0c0c;
       --bg2:    #151515;
-      --fg:     #f5f5f7; 
-      --muted:  #a1a1a6; 
-      --dim:    #86868b; 
+      --fg:     #f5f5f7;
+      --muted:  #a1a1a6;
+      --dim:    #86868b;
       --border: rgba(255,255,255,0.08);
+      --blue:   #2997ff;
       --hh:     56px;
-      --gap:    6px; 
+      --gap:    6px;
       --pad:    52px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                   "Inter", "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--fg);
       padding-top: var(--hh);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      letter-spacing: -0.015em; 
+      letter-spacing: -0.015em;
     }
 
     /* ─── HEADER ─── */
@@ -40,7 +66,7 @@
       position: fixed;
       inset: 0 0 auto 0;
       height: var(--hh);
-      background: rgba(12,12,12,0.75);
+      background: rgba(12,12,12,0.78);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 0.5px solid var(--border);
@@ -49,17 +75,37 @@
       justify-content: space-between;
       padding: 0 28px;
       z-index: 300;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
     .logo {
       font-weight: 600;
       font-size: 1.15rem;
       letter-spacing: -0.02em;
       color: var(--fg);
       text-decoration: none;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
     }
     .logo b { font-weight: 700; color: #fff; }
+
+    /* Available badge */
+    .avail-badge {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 10px;
+      background: rgba(52,199,89,0.1);
+      color: #34c759;
+      border: 0.5px solid rgba(52,199,89,0.3);
+      animation: badge-pulse 2.8s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes badge-pulse {
+      0%,100% { opacity:1; }
+      50%      { opacity:0.5; }
+    }
+
     nav { display: flex; gap: 4px; }
     nav a {
       display: block;
@@ -70,23 +116,24 @@
       text-decoration: none;
       border-radius: 5px;
       transition: color .2s, background .2s;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
     nav a:hover  { color: var(--fg); }
     nav a.active { color: var(--fg); background: rgba(255,255,255,0.1); }
 
-    /* ─── REVEAL ANIMATIONS ─── */
+    /* ─── REVEAL ─── */
     .r {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1),
+                  transform .9s cubic-bezier(.16,1,.3,1);
     }
-    .r.vis { opacity: 1; transform: none; }
+    .r.vis { opacity:1; transform:none; }
 
     .rs > * {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1),
+                  transform .8s cubic-bezier(.16,1,.3,1);
     }
     .rs.vis > *:nth-child(1) { opacity:1; transform:none; transition-delay:.00s; }
     .rs.vis > *:nth-child(2) { opacity:1; transform:none; transition-delay:.08s; }
@@ -103,10 +150,127 @@
       margin-bottom: 20px;
     }
 
+    /* ─── HERO ─── */
+    #hero {
+      min-height: calc(100vh - var(--hh));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px var(--pad) 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 45%,
+                    rgba(41,151,255,0.055) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 28px;
+    }
+    .hero-hl {
+      font-size: clamp(2.8rem, 7.5vw, 6.8rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      margin-bottom: 32px;
+      max-width: 860px;
+    }
+    .hero-hl em {
+      color: var(--muted);
+      font-style: normal;
+      font-weight: 300;
+    }
+    .hero-credits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 52px;
+    }
+    .hero-pill {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 0.5px solid rgba(255,255,255,0.13);
+      color: var(--muted);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 40px;
+      border-radius: 32px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background .2s, transform .2s;
+      font-family: inherit;
+    }
+    .btn-primary:hover { background: #0071e3; transform: scale(1.04); }
+    .btn-secondary {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 32px;
+      transition: color .2s;
+    }
+    .btn-secondary:hover { color: var(--fg); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--dim);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: scroll-hint 2.2s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 28px;
+      background: linear-gradient(to bottom, var(--dim), transparent);
+    }
+    @keyframes scroll-hint {
+      0%,100% { opacity:0.7; transform:translateX(-50%) translateY(0); }
+      50%      { opacity:1;   transform:translateX(-50%) translateY(5px); }
+    }
+
     /* ─── ABOUT ─── */
     #about {
       background: var(--bg2);
-      padding: 140px 0 120px; 
+      padding: 140px 0 120px;
     }
     .about-wrap {
       max-width: 1080px;
@@ -122,7 +286,6 @@
       margin-bottom: 52px;
     }
     .about-hl em { color: var(--muted); font-weight: 400; }
-
     .about-cols {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -137,11 +300,10 @@
       color: var(--muted);
       margin-bottom: 20px;
     }
-    
     .about-img {
       width: 100%;
       aspect-ratio: 4/3;
-      background: #222;
+      background: #1e1e1e;
       border-radius: 8px;
       overflow: hidden;
     }
@@ -151,7 +313,6 @@
       object-fit: cover;
       display: block;
     }
-
     .about-credits { border-top: 0.5px solid var(--border); padding-top: 40px; }
     .credits-label {
       font-size: 0.65rem;
@@ -172,16 +333,15 @@
     .credit-role { font-size: 0.8rem; color: var(--muted); }
 
     /* ─── WORK ─── */
-    #work { 
-      padding: 100px 0 40px; 
+    #work {
+      padding: 100px 0 40px;
       border-top: 0.5px solid var(--border);
     }
-
     .work-hdr {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      padding: 0 var(--gap) 18px;
+      padding: 0 var(--gap) 16px;
       max-width: 1800px;
       margin: 0 auto;
     }
@@ -190,14 +350,45 @@
       font-weight: 500;
       letter-spacing: 0.05em;
       color: var(--muted);
+      transition: color .2s;
     }
 
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 var(--gap) 24px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+    .filter-btn {
+      appearance: none;
+      background: transparent;
+      border: 0.5px solid rgba(255,255,255,0.14);
+      color: var(--muted);
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color .2s, background .2s, border-color .2s;
+    }
+    .filter-btn:hover  { color: var(--fg); border-color: rgba(255,255,255,0.28); }
+    .filter-btn.active {
+      background: rgba(255,255,255,0.09);
+      color: var(--fg);
+      border-color: rgba(255,255,255,0.28);
+    }
+
+    /* ─── GRID ─── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(10, 1fr); 
+      grid-template-columns: repeat(10, 1fr);
       gap: var(--gap);
       padding: 0 var(--gap) var(--gap);
-      max-width: 1800px; 
+      max-width: 1800px;
       margin: 0 auto;
     }
 
@@ -207,35 +398,39 @@
       cursor: pointer;
       overflow: hidden;
       background: #111;
-      border-radius: 4px; 
+      border-radius: 4px;
     }
+    /* Skeleton loading */
     .card img {
       width: 100%;
       display: block;
       aspect-ratio: 9 / 13;
       object-fit: cover;
-      transition: transform .72s cubic-bezier(.22,1,.36,1); 
+      background: #1a1a1a;
+      opacity: 0;
+      transition: transform .72s cubic-bezier(.22,1,.36,1),
+                  opacity .45s ease;
     }
+    .card img.loaded { opacity: 1; }
     .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 40%, transparent 100%);
+      background: linear-gradient(to top,
+        rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 40%, transparent 100%);
       opacity: 0;
       transition: opacity .4s ease;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 10px 8px; 
+      padding: 10px 8px;
       gap: 4px;
     }
-    
     .card-studio, .card-meta {
       transform: translateY(12px);
-      transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: transform .4s cubic-bezier(.25,1,.5,1);
     }
-
     .card-studio {
-      font-size: 0.45rem; 
+      font-size: 0.45rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -248,9 +443,8 @@
       gap: 4px;
     }
     .card-title {
-      font-size: 0.6rem; 
+      font-size: 0.6rem;
       font-weight: 500;
-      letter-spacing: 0;
       color: rgba(255,255,255,.95);
       line-height: 1.2;
     }
@@ -264,11 +458,21 @@
     }
     .play-ring svg { width:6px; height:6px; fill:rgba(255,255,255,.92); margin-left:1px; }
 
-    .card:hover img          { transform: scale(1.08); } 
-    .card:hover .card-overlay{ opacity: 1; }
-    .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
-    .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
-    .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
+    .card:hover img           { transform: scale(1.08); }
+    .card:hover .card-overlay { opacity: 1; }
+    .card:hover .card-studio,
+    .card:hover .card-meta    { transform: translateY(0); }
+    .card:hover .play-ring    { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
+    .card:focus-visible       { outline: 2px solid var(--blue); outline-offset: 2px; z-index:1; }
+
+    /* Active card when lightbox is open */
+    .card.lb-active { outline: 2px solid var(--blue); outline-offset: 2px; z-index:1; }
+    .card.lb-active .card-overlay { opacity: 1; }
+    .card.lb-active .card-studio,
+    .card.lb-active .card-meta   { transform: translateY(0); }
+
+    /* Filtered-out card */
+    .card.hidden { display: none; }
 
     /* ─── CONTACT ─── */
     #contact {
@@ -333,27 +537,27 @@
     .foot { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color .2s; }
     a.foot:hover { color: var(--fg); }
 
-    /* ─── LIGHTBOX (모달 & 네비게이션 적용) ─── */
+    /* ─── LIGHTBOX ─── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.85); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.86);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       opacity: 0;
       transition: opacity .3s ease;
-      padding: 20px; 
+      padding: 20px;
     }
     .lightbox.open { opacity: 1; }
-    
+
     .lb-surface {
       width: 100%;
-      max-width: 1200px; 
-      max-height: 90vh; 
+      max-width: 1200px;
+      max-height: 90vh;
       background: #111;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
@@ -361,29 +565,56 @@
       flex-direction: column;
       padding: 30px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-      overflow-y: auto; 
+      overflow-y: auto;
     }
-    
+
+    /* LB header row */
     .lb-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       padding-bottom: 16px;
       margin-bottom: 24px;
     }
     .lb-name {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      letter-spacing: .02em;
       color: var(--fg);
       margin: 0;
+      flex: 1;
+      line-height: 1.3;
     }
-    
+    .lb-pills {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .lb-pill {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 0.5px solid rgba(255,255,255,0.13);
+      color: var(--dim);
+    }
+    .lb-pill.cat {
+      border-color: rgba(41,151,255,0.28);
+      color: var(--blue);
+      background: rgba(41,151,255,0.07);
+    }
+
     .lb-body {
       display: flex;
       gap: 30px;
       align-items: flex-start;
       margin-bottom: 30px;
     }
-    
     .lb-video-container {
       flex: 2;
       background: #000;
@@ -397,36 +628,60 @@
       border: none;
       display: block;
     }
-    
-    .lb-desc-container {
+
+    /* LB description panel */
+    .lb-desc {
       flex: 1;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .lb-desc-container h3 {
+    .lb-desc h3 {
       color: var(--fg);
-      font-size: 1.05rem;
-      margin: 0 0 12px 0;
+      font-size: 1rem;
       font-weight: 500;
+      margin: 0;
     }
-    
-    /* 하단 바 - 좌우 정렬을 위해 수정 */
-    .lb-bar { 
-      display: flex; 
-      justify-content: space-between; /* 왼쪽 화살표, 오른쪽 닫기버튼 분리 */
-      align-items: center; 
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding-top: 24px;
-      margin-top: auto; 
+    .lb-desc-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .lb-desc-row {
+      display: flex;
+      gap: 6px;
+      font-size: 0.72rem;
+    }
+    .lb-desc-label {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--dim);
+      min-width: 48px;
+    }
+    .lb-desc-val { color: var(--muted); }
+    .lb-desc-body {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--muted);
+      border-top: 0.5px solid rgba(255,255,255,0.06);
+      padding-top: 12px;
     }
 
-    /* 네비게이션 버튼 스타일 (왼쪽) */
-    .lb-nav { display: flex; gap: 12px; }
+    /* LB bottom bar */
+    .lb-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 24px;
+      margin-top: auto;
+    }
+    .lb-nav { display: flex; gap: 10px; align-items: center; }
     .lb-nav-btn {
       appearance: none;
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.18);
       color: var(--fg);
       padding: 10px 20px;
       border-radius: 20px;
@@ -434,65 +689,87 @@
       font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background .2s, border-color .2s;
     }
-    .lb-nav-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
-
-    /* 닫기 영역 스타일 (오른쪽) */
+    .lb-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.45); }
+    .lb-counter {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+      min-width: 44px;
+      text-align: center;
+    }
     .lb-close-area { display: flex; align-items: center; gap: 20px; }
+    .lb-esc {
+      font-size: 0.6rem;
+      color: var(--dim);
+      line-height: 1.6;
+      text-align: right;
+    }
     .lb-close {
       appearance: none;
-      background: #2997ff; 
+      background: var(--blue);
       border: none;
-      color: #fff; 
-      padding: 12px 40px; 
+      color: #fff;
+      padding: 12px 40px;
       font-family: inherit;
-      font-size: 0.9rem; 
-      font-weight: 700; 
-      border-radius: 24px; 
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 24px;
       letter-spacing: .05em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background .2s, color .2s, transform .2s, outline .2s;
+      transition: background .2s, color .2s, transform .2s;
     }
-    .lb-close:hover { background: #fff; color: #2997ff; transform: scale(1.05); }
-    .lb-close:focus { outline: 2px solid #2997ff; outline-offset: 2px; }
-    .lb-esc { font-size: 0.65rem; color: var(--dim); }
+    .lb-close:hover { background: #fff; color: var(--blue); transform: scale(1.04); }
+    .lb-close:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 1400px) {
-      .grid { grid-template-columns: repeat(8,1fr); }
-    }
+    @media (max-width: 1400px) { .grid { grid-template-columns: repeat(8,1fr); } }
     @media (max-width: 1100px) {
-      .grid { grid-template-columns: repeat(5,1fr); }
-      .about-cols { grid-template-columns: 1fr; gap: 32px; }
-      .contact-tiles { grid-template-columns: 1fr; }
-      .ctile { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .grid         { grid-template-columns: repeat(5,1fr); }
+      .about-cols   { grid-template-columns: 1fr; gap: 32px; }
+      .contact-tiles{ grid-template-columns: 1fr; }
+      .ctile        { border-right: none; border-bottom: 0.5px solid var(--border); }
       .ctile:last-child { border-bottom: none; }
       :root { --pad: 28px; }
     }
     @media (max-width: 900px) {
-      .lb-body { flex-direction: column; gap: 20px; }
-      .lb-video-container, .lb-desc-container { width: 100%; flex: none; }
-      .lb-bar { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
-      .lb-close-area { justify-content: space-between; }
-      .lb-nav { justify-content: center; }
+      .lb-body         { flex-direction: column; gap: 20px; }
+      .lb-video-container,
+      .lb-desc         { width: 100%; flex: none; }
+      .lb-bar          { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
+      .lb-close-area   { justify-content: space-between; }
+      .lb-nav          { justify-content: center; }
+      .lb-header       { flex-direction: column; align-items: flex-start; }
+      .lb-pills        { justify-content: flex-start; }
     }
     @media (max-width: 768px) {
-      .grid { grid-template-columns: repeat(4,1fr); }
+      .grid   { grid-template-columns: repeat(4,1fr); }
+      .hero-hl{ font-size: clamp(2.4rem, 10vw, 4rem); }
     }
     @media (max-width: 480px) {
-      .grid { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
+      .grid         { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
       .credits-grid { grid-template-columns: 1fr; }
-      nav a { padding: 5px 10px; font-size: 0.7rem; }
-      .lb-surface { padding: 20px; }
+      nav a         { padding: 5px 10px; font-size: 0.7rem; }
+      .lb-surface   { padding: 20px; }
+      .avail-badge  { display: none; }
+      .hero-hl      { font-size: clamp(1.9rem, 12vw, 3rem); letter-spacing: -0.03em; }
+      .hero-credits { display: none; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
 <header>
-  <a href="#" class="logo"><b>Jay Han</b> — VFX Compositor</a>
+  <div class="logo-wrap">
+    <a href="#" class="logo"><b>Jay Han</b> — VFX Compositor</a>
+    <span class="avail-badge">Available</span>
+  </div>
   <nav id="nav">
     <a href="#about"   data-sec="about">About</a>
     <a href="#work"    data-sec="work">Work</a>
@@ -500,12 +777,38 @@
   </nav>
 </header>
 
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <span class="hero-eyebrow">Compositing Supervisor · Vancouver, BC</span>
+  <h1 class="hero-hl">
+    20 years of<br>
+    <em>feature animation</em><br>
+    &amp; visual effects.
+  </h1>
+  <div class="hero-credits">
+    <span class="hero-pill">Spider-Man: Into the Spider-Verse</span>
+    <span class="hero-pill">Avatar</span>
+    <span class="hero-pill">K-Pop Demon Hunters</span>
+    <span class="hero-pill">SIGGRAPH Asia 2025</span>
+  </div>
+  <div class="hero-actions">
+    <button class="btn-primary" id="hero-reel-btn">Watch My Reel</button>
+    <a href="#work" class="btn-secondary">View All Work →</a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Scroll</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
 <section id="about">
   <div class="about-wrap">
     <span class="eyebrow r">About</span>
     <h2 class="about-hl r">
       20 years of visual effects.<br>
-      <em style="display:block; margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
+      <em style="display:block;margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
     </h2>
     <div class="about-cols">
       <div class="about-text r">
@@ -521,11 +824,11 @@
           and next-generation pipeline techniques.
         </p>
       </div>
+      <!-- Replace assets/posters/poster01.jpg with your actual profile/workspace photo -->
       <div class="about-img r" style="transition-delay:.1s">
-        <img src="assets/posters/poster01.jpg" alt="Jay Han Workspace" loading="lazy">
+        <img src="assets/posters/poster01.jpg" alt="Jay Han — Compositing Supervisor at work" loading="lazy">
       </div>
     </div>
-    
     <div class="about-credits r">
       <p class="credits-label">Selected Credits</p>
       <div class="credits-grid">
@@ -550,138 +853,28 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════
+     WORK
+══════════════════════════════════════ -->
 <section id="work">
   <div class="work-hdr r">
     <span class="eyebrow" style="margin:0;">Selected Work</span>
-    <span class="work-count">30 Films</span>
+    <span class="work-count" id="work-count">— Films</span>
   </div>
 
-  <div class="grid" id="grid">
-    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
-      <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
-      <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
-      <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
-      <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
-      <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
-      <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
-      <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
-      <img src="assets/posters/poster10.jpg" alt="Poster 10" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-
-    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster01.jpg" alt="Poster 11" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster02.jpg" alt="Poster 12" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
-      <img src="assets/posters/poster03.jpg" alt="Poster 13" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
-      <img src="assets/posters/poster04.jpg" alt="Poster 14" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
-      <img src="assets/posters/poster05.jpg" alt="Poster 15" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
-      <img src="assets/posters/poster06.jpg" alt="Poster 16" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
-      <img src="assets/posters/poster07.jpg" alt="Poster 17" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
-      <img src="assets/posters/poster08.jpg" alt="Poster 18" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
-      <img src="assets/posters/poster09.jpg" alt="Poster 19" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
-      <img src="assets/posters/poster10.jpg" alt="Poster 20" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-
-    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster01.jpg" alt="Poster 21" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
-      <img src="assets/posters/poster02.jpg" alt="Poster 22" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
-      <img src="assets/posters/poster03.jpg" alt="Poster 23" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
-      <img src="assets/posters/poster04.jpg" alt="Poster 24" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
-      <img src="assets/posters/poster05.jpg" alt="Poster 25" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
-      <img src="assets/posters/poster06.jpg" alt="Poster 26" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
-      <img src="assets/posters/poster07.jpg" alt="Poster 27" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
-      <img src="assets/posters/poster08.jpg" alt="Poster 28" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
-      <img src="assets/posters/poster09.jpg" alt="Poster 29" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
-    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
-      <img src="assets/posters/poster10.jpg" alt="Poster 30" loading="lazy">
-      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
-    </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Feature Animation">Feature Animation</button>
+    <button class="filter-btn" data-filter="VFX Comp">VFX Comp</button>
+    <button class="filter-btn" data-filter="Stereoscopic &amp; Immersive">Stereoscopic &amp; Immersive</button>
   </div>
+
+  <div class="grid" id="grid"></div>
 </section>
 
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
 <section id="contact">
   <div class="contact-wrap">
     <span class="eyebrow r">Contact</span>
@@ -708,49 +901,260 @@
   <a href="#" class="foot">Back to top ↑</a>
 </footer>
 
+<!-- ══════════════════════════════════════
+     LIGHTBOX
+══════════════════════════════════════ -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="lb-surface" role="dialog" aria-modal="true">
-    
+  <div class="lb-surface" role="dialog" aria-modal="true" aria-labelledby="lb-name">
+
     <div class="lb-header">
       <p class="lb-name" id="lb-name"></p>
-    </div>
-    
-    <div class="lb-body">
-      <div class="lb-video-container" id="lb-video-container"></div>
-      
-      <div class="lb-desc-container">
-        <h3 id="lb-desc-title">About This Project</h3>
-        <p>여기에 부연 설명을 입력하세요. (This is a placeholder for the supplementary explanation.)<br><br>작품에 대한 상세 정보, 사용된 소프트웨어(Nuke, Blender 등), 담당 역할 등을 자유롭게 기입하여 포트폴리오의 전문성을 높일 수 있습니다.</p>
+      <div class="lb-pills">
+        <span class="lb-pill" id="lb-year"></span>
+        <span class="lb-pill cat" id="lb-cat"></span>
       </div>
     </div>
-    
+
+    <div class="lb-body">
+      <div class="lb-video-container" id="lb-video-container"></div>
+
+      <div class="lb-desc">
+        <h3 id="lb-desc-title">About This Project</h3>
+        <div class="lb-desc-meta">
+          <div class="lb-desc-row">
+            <span class="lb-desc-label">Role</span>
+            <span class="lb-desc-val" id="lb-role"></span>
+          </div>
+          <div class="lb-desc-row">
+            <span class="lb-desc-label">Studio</span>
+            <span class="lb-desc-val" id="lb-studio"></span>
+          </div>
+        </div>
+        <p class="lb-desc-body" id="lb-desc-body"></p>
+      </div>
+    </div>
+
     <div class="lb-bar">
       <div class="lb-nav">
         <button class="lb-nav-btn" id="lb-prev">← Prev</button>
+        <span class="lb-counter" id="lb-counter"></span>
         <button class="lb-nav-btn" id="lb-next">Next →</button>
       </div>
-      
       <div class="lb-close-area">
-        <span class="lb-esc">Esc to close</span>
+        <span class="lb-esc">← → to browse<br>Esc to close</span>
         <button class="lb-close" id="lb-close">Close</button>
       </div>
     </div>
-    
+
   </div>
 </div>
 
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
 <script>
-/* ── NAV: scroll + active highlight ── */
-const navLinks = document.querySelectorAll('nav a[data-sec]');
+/* ─────────────────────────────────────
+   PROJECT DATA
+   Add/edit entries here to update the site.
+───────────────────────────────────── */
+const projects = [
+  {
+    video:      'https://www.youtube.com/watch?v=g4Hbz2jLxvQ',
+    title:      'Spider-Man: Into the Spider-Verse',
+    cardTitle:  'Into the Spider-Verse',
+    poster:     'poster01.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2018,
+    role:       'Compositor',
+    category:   'Feature Animation',
+    desc:       'Academy Award-winning animated feature. Contributed to the groundbreaking multi-style comic book pipeline — integrating halftone, offset-print, and hand-drawn aesthetics within a unified Nuke compositing framework. Sequences included the signature color-split and motion-blur effects that redefined the language of animated film.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=cqGjhVJWtEg',
+    title:      'Spider-Man: Across the Spider-Verse',
+    cardTitle:  'Across the Spider-Verse',
+    poster:     'poster02.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2023,
+    role:       'Compositor',
+    category:   'Feature Animation',
+    desc:       'Expanded the Spider-Verse visual language across six dimension-specific animation styles. Compositing work centered on cross-dimensional sequences requiring precise style-boundary integration, including the Spider-Society arena where multiple character aesthetics coexist within a single frame.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=TbQm5doF_Uc',
+    title:      'K-Pop Demon Hunters',
+    cardTitle:  'K-Pop Demon Hunters',
+    poster:     'poster03.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2025,
+    role:       'Compositing Supervisor',
+    category:   'Feature Animation',
+    desc:       'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature. Developed a Nuke-based pipeline honoring the visual language of Korean pop culture — stage lighting, broadcast aesthetics, and idol performance energy. Presented the production pipeline at SIGGRAPH Asia 2025.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=5Gb6-1V3kNI',
+    title:      'The Mitchells vs. the Machines',
+    cardTitle:  'Mitchells vs. Machines',
+    poster:     'poster04.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2021,
+    role:       'Compositor',
+    category:   'Feature Animation',
+    desc:       'Phil Lord and Chris Miller production requiring innovation on the studio\'s sticker-and-drawing overlay system. The hybrid 2D/CG aesthetic demanded unconventional comp techniques to maintain a hand-crafted look at scale, blending illustrated overlays seamlessly with CG environments throughout production.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=m2pSy0hPOBQ',
+    title:      'Puss in Boots: The Last Wish',
+    cardTitle:  'Puss in Boots: The Last Wish',
+    poster:     'poster05.jpg',
+    studio:     'DreamWorks',
+    studioFull: 'DreamWorks Animation',
+    year:       2022,
+    role:       'VFX Compositor',
+    category:   'Feature Animation',
+    desc:       'Compositing contributions to the award-winning sequel that redefined DreamWorks Animation\'s visual language. The expressionistic 2D-influenced style required developing paint-hold and smear frame techniques within a primarily CG pipeline, maintaining the painterly aesthetic across complex multi-character action sequences.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=y_4h4D2BQUI',
+    title:      'Vivo',
+    cardTitle:  'Vivo',
+    poster:     'poster06.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2021,
+    role:       'Compositor',
+    category:   'Feature Animation',
+    desc:       'Lin-Manuel Miranda\'s musical animated feature set across Havana and Miami. Compositing work focused on vibrant tropical environment sequences and high-energy musical performance shots, integrating rich color palettes with complex interactive lighting from stylized practical set environments in Nuke.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=HwUKDzAoDgs',
+    title:      'Klaus',
+    cardTitle:  'Klaus',
+    poster:     'poster07.jpg',
+    studio:     'SPA Studios',
+    studioFull: 'SPA Studios',
+    year:       2019,
+    role:       'VFX Compositor',
+    category:   'Feature Animation',
+    desc:       'Netflix\'s Academy Award-nominated feature introducing a revolutionary 2D-with-volume lighting pipeline. Compositing work focused on preserving the painterly quality of the hand-drawn lighting model at final comp, contributing to techniques now widely referenced in the feature animation industry.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=5SuoTp9TROU',
+    title:      'Hotel Transylvania',
+    cardTitle:  'Hotel Transylvania',
+    poster:     'poster08.jpg',
+    studio:     'SPA',
+    studioFull: 'Sony Pictures Animation',
+    year:       2012,
+    role:       'Compositor',
+    category:   'Feature Animation',
+    desc:       'Early Sony Pictures Animation feature where core compositing conventions for the studio\'s stylized look were established. Focused on atmospheric effects and creature-heavy sequences, helping build the Nuke-based pipeline standards that carried forward across the SPA feature animation library.'
+  },
+  {
+    video:      'https://www.youtube.com/watch?v=TEHWDA_6e3M',
+    title:      'Avatar',
+    cardTitle:  'Avatar',
+    poster:     'poster09.jpg',
+    studio:     'Weta',
+    studioFull: 'Weta Digital',
+    year:       2009,
+    role:       'VFX Compositor',
+    category:   'VFX Comp',
+    desc:       'VFX Compositor on James Cameron\'s landmark production. Contributed to the live-action stereoscopic pipeline, with primary work on final composite integration of CG environments and characters with stereo-acquired plate photography, and stereo wire removal for complex performance sequences filmed on Pandora environments.'
+  },
+  {
+    video:      'https://vimeo.com/905584986',
+    title:      'Stereoscopic & Immersive Reel',
+    cardTitle:  'Stereoscopic Reel',
+    poster:     'poster10.jpg',
+    studio:     'Portfolio',
+    studioFull: 'Personal Portfolio',
+    year:       2024,
+    role:       'Compositing Supervisor',
+    category:   'Stereoscopic & Immersive',
+    desc:       'Curated reel of stereoscopic and immersive compositing work spanning native-stereo 8K cleanup, depth-plane integration for head-mounted display delivery, and pipeline development for next-generation immersive formats. Demonstrates the depth-native VFX methodology developed through Avatar and Journey to the Center of the Earth stereoscopic productions.'
+  }
+];
 
-navLinks.forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector('#' + a.dataset.sec)?.scrollIntoView({ behavior: 'smooth' });
+/* ─────────────────────────────────────
+   BUILD GRID
+───────────────────────────────────── */
+const gridEl = document.getElementById('grid');
+const cards  = [];
+
+projects.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.dataset.index    = i;
+  div.dataset.category = p.category;
+  div.tabIndex = 0;
+  div.setAttribute('role', 'button');
+  div.setAttribute('aria-label', p.title);
+  div.innerHTML = `
+    <img src="assets/posters/${p.poster}" alt="${p.title} — film poster" loading="lazy">
+    <div class="card-overlay">
+      <span class="card-studio">${p.studio}</span>
+      <div class="card-meta">
+        <span class="card-title">${p.cardTitle}</span>
+        <div class="play-ring">
+          <svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg>
+        </div>
+      </div>
+    </div>`;
+
+  const img = div.querySelector('img');
+  if (img.complete) img.classList.add('loaded');
+  else img.addEventListener('load', () => img.classList.add('loaded'));
+
+  gridEl.appendChild(div);
+  cards.push(div);
+});
+
+document.getElementById('work-count').textContent = projects.length + ' Films';
+
+/* ─────────────────────────────────────
+   FILTER
+───────────────────────────────────── */
+function applyFilter(filter) {
+  let visible = 0;
+  cards.forEach((c, i) => {
+    const match = filter === 'all' || projects[i].category === filter;
+    c.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  document.getElementById('work-count').textContent =
+    visible + ' Film' + (visible !== 1 ? 's' : '');
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.filter);
   });
 });
 
-(function(){
+/* ─────────────────────────────────────
+   NAV: smooth scroll + active state
+───────────────────────────────────── */
+const navLinks = document.querySelectorAll('nav a[data-sec]');
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById(a.dataset.sec)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === en.target.id));
+  });
+}, { threshold: 0.35 }).observe && (() => {
   const sio = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (!en.isIntersecting) return;
@@ -760,7 +1164,9 @@ navLinks.forEach(a => {
   document.querySelectorAll('section[id]').forEach(s => sio.observe(s));
 })();
 
-/* ── SCROLL REVEAL ── */
+/* ─────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────── */
 const rio = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (!en.isIntersecting) return;
@@ -768,25 +1174,35 @@ const rio = new IntersectionObserver(entries => {
     rio.unobserve(en.target);
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-
 document.querySelectorAll('.r, .rs').forEach(el => rio.observe(el));
 
-/* ── LIGHTBOX ── */
+/* ─────────────────────────────────────
+   LIGHTBOX
+───────────────────────────────────── */
 const lb      = document.getElementById('lightbox');
-const lbVideo = document.getElementById('lb-video-container'); 
+const lbVC    = document.getElementById('lb-video-container');
 const lbName  = document.getElementById('lb-name');
-const lbDescTitle = document.getElementById('lb-desc-title');
+const lbYear  = document.getElementById('lb-year');
+const lbCat   = document.getElementById('lb-cat');
+const lbRole  = document.getElementById('lb-role');
+const lbStudio= document.getElementById('lb-studio');
+const lbTitle = document.getElementById('lb-desc-title');
+const lbBody  = document.getElementById('lb-desc-body');
+const lbCount = document.getElementById('lb-counter');
 const lbClose = document.getElementById('lb-close');
 
-// 모든 카드 요소를 배열로 저장하여 이전/다음 로직에 활용
-const cards = Array.from(document.querySelectorAll('.card'));
-let currentIndex = -1;
+let currentIdx  = -1;
+let closeTimer  = null;
+
+/* Returns only visible (non-filtered) cards */
+function visibleCards() {
+  return cards.filter(c => !c.classList.contains('hidden'));
+}
 
 function toEmbed(url) {
   if (!url) return '';
   try {
-    const u = new URL(url);
-    const h = u.hostname;
+    const u = new URL(url), h = u.hostname;
     if (h.includes('youtu.be'))
       return 'https://www.youtube.com/embed/' + u.pathname.slice(1).split(/[?&#]/)[0];
     if (h.includes('youtube.com')) {
@@ -804,80 +1220,133 @@ function toEmbed(url) {
   return url;
 }
 
-function openLB(rawUrl, title) {
-  let src = toEmbed(rawUrl);
-  // Mute 파라미터 유지
-  if (src) src += (src.includes('?') ? '&' : '?') + 'autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&title=0&byline=0&portrait=0';
-  
-  lbVideo.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
-  lbName.textContent = title || '';
-  lbDescTitle.textContent = title ? title + " Details" : "About This Project"; // 동적으로 설명란 제목도 변경
-  
+function openLB(idx) {
+  currentIdx = idx;
+  const p = projects[idx];
+
+  /* Embed URL — fix Vimeo vs YouTube mute param */
+  let src = toEmbed(p.video);
+  const isVimeo = src.includes('vimeo.com');
+  const extra = isVimeo
+    ? 'autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0'
+    : 'autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1';
+  src += (src.includes('?') ? '&' : '?') + extra;
+
+  lbVC.innerHTML    = `<iframe src="${src}" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>`;
+  lbName.textContent  = p.title;
+  lbYear.textContent  = p.year;
+  lbCat.textContent   = p.category;
+  lbRole.textContent  = p.role;
+  lbStudio.textContent= p.studioFull;
+  lbTitle.textContent = p.title;
+  lbBody.textContent  = p.desc;
+
+  /* Counter — position within currently visible set */
+  const vis    = visibleCards();
+  const posIdx = vis.indexOf(cards[idx]);
+  lbCount.textContent = posIdx >= 0
+    ? `${posIdx + 1} / ${vis.length}`
+    : `${idx + 1} / ${projects.length}`;
+
+  /* Active card highlight */
+  cards.forEach(c => c.classList.remove('lb-active'));
+  cards[idx].classList.add('lb-active');
+
   if (!lb.classList.contains('open')) {
     lb.setAttribute('aria-hidden', 'false');
     document.documentElement.style.overflow = 'hidden';
     lb.style.display = 'flex';
     requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('open')));
+    setTimeout(() => document.getElementById('lb-prev').focus(), 320);
   }
 }
 
 function closeLB() {
   lb.classList.remove('open');
   lb.setAttribute('aria-hidden', 'true');
-  setTimeout(() => {
+  cards.forEach(c => c.classList.remove('lb-active'));
+  clearTimeout(closeTimer);
+  closeTimer = setTimeout(() => {
     lb.style.display = '';
-    lbVideo.innerHTML = '';
-    lbName.textContent = '';
+    lbVC.innerHTML = '';
     document.documentElement.style.overflow = '';
   }, 320);
 }
 
-// 다음 포스터 보기
-function showNext() {
-  if (currentIndex < 0) return;
-  currentIndex = (currentIndex + 1) % cards.length;
-  const c = cards[currentIndex];
-  openLB(c.dataset.video, c.dataset.title);
+/* Navigate within visible (filtered) card set */
+function navigate(dir) {
+  if (currentIdx < 0) return;
+  const vis = visibleCards();
+  if (!vis.length) return;
+  const cur  = vis.indexOf(cards[currentIdx]);
+  const next = (cur >= 0 ? cur : 0) + dir;
+  const wrap = ((next % vis.length) + vis.length) % vis.length;
+  openLB(parseInt(vis[wrap].dataset.index));
 }
 
-// 이전 포스터 보기
-function showPrev() {
-  if (currentIndex < 0) return;
-  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-  const c = cards[currentIndex];
-  openLB(c.dataset.video, c.dataset.title);
-}
-
-// 클릭 이벤트 리스너
-document.getElementById('grid').addEventListener('click', e => {
+/* Grid interactions */
+gridEl.addEventListener('click', e => {
   const c = e.target.closest('.card');
-  if (c) {
-    currentIndex = cards.indexOf(c); // 클릭한 카드의 인덱스 저장
-    openLB(c.dataset.video, c.dataset.title);
-  }
+  if (c) openLB(parseInt(c.dataset.index));
 });
-
-document.getElementById('grid').addEventListener('keydown', e => {
+gridEl.addEventListener('keydown', e => {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   const c = e.target.closest('.card');
   if (!c) return;
   e.preventDefault();
-  currentIndex = cards.indexOf(c);
-  openLB(c.dataset.video, c.dataset.title);
+  openLB(parseInt(c.dataset.index));
 });
 
-document.getElementById('lb-next').addEventListener('click', showNext);
-document.getElementById('lb-prev').addEventListener('click', showPrev);
-
+/* Lightbox controls */
+document.getElementById('lb-prev').addEventListener('click', () => navigate(-1));
+document.getElementById('lb-next').addEventListener('click', () => navigate(+1));
 lbClose.addEventListener('click', closeLB);
 lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
 
-window.addEventListener('keydown', e => { 
+/* Keyboard: Esc + arrow navigation */
+window.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
-  if (e.key === 'Escape') closeLB();
-  if (e.key === 'ArrowRight') showNext(); // 키보드 우측 화살표로 다음 이동
-  if (e.key === 'ArrowLeft') showPrev();  // 키보드 좌측 화살표로 이전 이동
+  if (e.key === 'Escape')     { closeLB(); return; }
+  if (e.key === 'ArrowRight') { navigate(+1); return; }
+  if (e.key === 'ArrowLeft')  { navigate(-1); return; }
+});
+
+/* Focus trap */
+lb.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open') || e.key !== 'Tab') return;
+  const focusable = Array.from(
+    lb.querySelectorAll('button, [tabindex]:not([tabindex="-1"])')
+  ).filter(el => !el.disabled);
+  const first = focusable[0];
+  const last  = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    last.focus(); e.preventDefault();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    first.focus(); e.preventDefault();
+  }
+});
+
+/* Mobile swipe */
+let touchX0 = 0;
+lb.addEventListener('touchstart', e => { touchX0 = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchX0;
+  if (Math.abs(dx) > 50) navigate(dx < 0 ? +1 : -1);
+});
+
+/* ─────────────────────────────────────
+   HERO REEL BUTTON
+   Opens the Stereoscopic Reel (index 9).
+   Change the index to your preferred reel project.
+───────────────────────────────────── */
+document.getElementById('hero-reel-btn').addEventListener('click', () => {
+  /* Reset filter to All so the reel is always reachable */
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+  applyFilter('all');
+  openLB(9); /* ← index of your showreel project */
 });
 </script>
+
 </body>
 </html>
