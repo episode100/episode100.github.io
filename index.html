@@ -5,117 +5,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio Posters</title>
   <style>
-    :root { --bg:#0b0d13; --fg:#eef2f8; --muted:#aab4c8; --panel:#111522; --border:#1a2130; }
+    :root { --bg:#050505; --fg:#ffffff; --panel:#111111; }
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body { margin:0; font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--fg); }
+    html, body { height: 100%; margin: 0; }
+    body { font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--fg); }
 
-    h1 { text-align:center; padding:20px 16px; margin:0; font-weight:700; }
+    h1 { 
+      text-align: center; 
+      padding: 60px 20px 40px; 
+      margin: 0; 
+      font-weight: 300; 
+      letter-spacing: 4px; 
+      text-transform: uppercase; 
+      font-size: 1.4rem; 
+      color: #eaeaea; 
+    }
 
-    /* Default grid: flexible 3+ columns */
+    /* Professional spacing grid */
     .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:16px;
-      padding:18px 16px 40px;
-      max-width:1200px;
-      margin:0 auto;
-      justify-items:center;   /* center cards in their cells */
-      align-items:start;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 40px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+      justify-items: center;
     }
 
-    /* Cards */
+    /* Card styling */
     .card {
-      position:relative;
-      cursor:pointer;
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:10px;
-      overflow:hidden;
-      transition:transform .2s ease, box-shadow .2s ease;
-      width:100%;
-      max-width:520px;
+      position: relative;
+      cursor: pointer;
+      background: var(--panel);
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-    .card img { width:100%; height:auto; display:block; aspect-ratio: 9/13; object-fit:cover; }
+
+    .card img { 
+      width: 100%; 
+      height: auto; 
+      display: block; 
+      aspect-ratio: 9/13; 
+      object-fit: cover; 
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+    }
+
+    /* Dark overlay on hover */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    /* Text on hover */
+    .card::before {
+      content: 'PLAY VIDEO';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      color: #fff;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      opacity: 0;
+      z-index: 2;
+      transition: all 0.4s ease;
+    }
+
+    /* Hover interactions */
+    .card:hover img, .card:focus img { transform: scale(1.04); }
+    .card:hover::after, .card:focus::after { opacity: 1; }
+    .card:hover::before, .card:focus::before { opacity: 1; transform: translate(-50%, -50%); }
+    .card:focus { outline: 2px solid #5a8dee; outline-offset: 4px; }
 
     /* Lightbox */
-    .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.88);
-      display:none; align-items:center; justify-content:center; z-index:1000; }
-    .lightbox.open { display:flex; }
-    .lightbox-surface { width:min(1600px, 98vw); max-height:96vh; display:flex; flex-direction:column; }
-    .lightbox-content { display:flex; align-items:center; justify-content:center; padding:10px 10px 4px; }
-    .lightbox-content iframe, .lightbox-content img {
-      width:min(1400px, 98vw);
-      aspect-ratio:16/9;
-      height:auto;
-      max-height:92vh;
-      border:0;
-      border-radius:10px;
-      background:#000;
-      display:block;
+    .lightbox { 
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
+      opacity: 0; transition: opacity 0.3s ease;
     }
-    .lightbox-bar { display:flex; justify-content:center; padding:8px 0 14px; }
-    .close { appearance:none; background:#111523; border:1px solid #263048; color:var(--fg);
-      border-radius:8px; padding:8px 16px; cursor:pointer; font-size:16px; }
-    .close:hover { background:#161b2a; }
-
-    /* 2-column forced zone: make cards appear smaller (75% width) and centered */
-    @media (max-width: 1100px) {
-      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .card { width:75%; } /* smaller look within each cell */
+    .lightbox.open { display: flex; opacity: 1; }
+    .lightbox-surface { width: min(1600px, 98vw); max-height: 96vh; display: flex; flex-direction: column; }
+    .lightbox-content { display: flex; align-items: center; justify-content: center; padding: 10px 10px 4px; }
+    .lightbox-content iframe {
+      width: min(1400px, 98vw);
+      aspect-ratio: 16/9;
+      border: 0;
+      background: #000;
+      display: block;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     }
+    
+    .lightbox-bar { display: flex; justify-content: center; padding: 16px 0 24px; }
+    
+    /* Minimalist close button */
+    .close { 
+      appearance: none; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--fg);
+      border-radius: 4px; padding: 10px 24px; cursor: pointer; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .close:hover, .close:focus { background: #fff; color: #000; outline: none; border-color: #fff; }
 
-    /* Small screens: used to be 1 column → now 2 columns and centered */
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .card { width:90%; margin: 0 auto; } /* keep a little gutter; centered */
-      h1 { font-size: 1.1rem; }
-      .lightbox-surface{ width:100vw; max-height:98vh; }
-      .lightbox-content iframe { width:100vw; max-height:94vh; border-radius:0; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; padding: 0 20px 60px; }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; gap: 40px; padding: 0 20px 40px; }
+      h1 { font-size: 1.2rem; padding: 40px 16px 30px; }
     }
   </style>
 </head>
 <body>
   <h1>Animated Film Posters</h1>
 
-  <div class="grid" id="grid">
-    <!-- Replace data-video values with your YouTube/Vimeo links as needed -->
-    <div class="card" data-video="https://player.vimeo.com/video/905584986">
-      <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
+  <main class="grid" id="grid">
+    <div class="card" data-video="https://player.vimeo.com/video/905584986" tabindex="0" role="button" aria-label="Play Video 1">
+      <img src="assets/posters/poster01.jpg" alt="Description of Poster 1" loading="lazy">
     </div>
-    <div class="card" data-video="https://youtu.be/TbQm5doF_Uc">
-      <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
+    <div class="card" data-video="https://youtu.be/TbQm5doF_Uc" tabindex="0" role="button" aria-label="Play Video 2">
+      <img src="assets/posters/poster02.jpg" alt="Description of Poster 2" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M">
-      <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" tabindex="0" role="button" aria-label="Play Video 3">
+      <img src="assets/posters/poster03.jpg" alt="Description of Poster 3" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/embed/CZ1CATNbXg0">
-      <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/embed/CZ1CATNbXg0" tabindex="0" role="button" aria-label="Play Video 4">
+      <img src="assets/posters/poster04.jpg" alt="Description of Poster 4" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=ORFWdXl_zJ4">
-      <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=ORFWdXl_zJ4" tabindex="0" role="button" aria-label="Play Video 5">
+      <img src="assets/posters/poster05.jpg" alt="Description of Poster 5" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=JcpWXaA2qeg">
-      <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=JcpWXaA2qeg" tabindex="0" role="button" aria-label="Play Video 6">
+      <img src="assets/posters/poster06.jpg" alt="Description of Poster 6" loading="lazy">
     </div>
-    <div class="card" data-video="https://vimeo.com/76979871">
-      <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
+    <div class="card" data-video="https://vimeo.com/76979871" tabindex="0" role="button" aria-label="Play Video 7">
+      <img src="assets/posters/poster07.jpg" alt="Description of Poster 7" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/shorts/tg52up16eq0">
-      <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/shorts/tg52up16eq0" tabindex="0" role="button" aria-label="Play Video 8">
+      <img src="assets/posters/poster08.jpg" alt="Description of Poster 8" loading="lazy">
     </div>
-    <div class="card" data-video="https://www.youtube.com/watch?v=yRUAzGQ3nSY">
-      <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=yRUAzGQ3nSY" tabindex="0" role="button" aria-label="Play Video 9">
+      <img src="assets/posters/poster09.jpg" alt="Description of Poster 9" loading="lazy">
     </div>
-  </div>
+  </main>
 
-  <!-- Lightbox with 'close' at bottom -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-surface" role="dialog" aria-modal="true" aria-label="Video preview">
       <div class="lightbox-content" id="lightbox-content"></div>
       <div class="lightbox-bar">
-        <button class="close" id="lbClose" aria-label="Close">close</button>
+        <button class="close" id="lbClose" aria-label="Close video">close</button>
       </div>
     </div>
   </div>
@@ -189,22 +235,39 @@
         src += (src.includes('?') ? '&' : '?') + params;
       }
       lightboxContent.innerHTML = '<iframe src="'+src+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-      lightbox.classList.add('open');
+      
+      // Changed to display block before setting opacity to trigger CSS transition
+      lightbox.style.display = 'flex';
+      setTimeout(() => { lightbox.classList.add('open'); }, 10);
+      
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox(){
       lightbox.classList.remove('open');
-      lightboxContent.innerHTML = '';
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      
+      // Wait for CSS transition to finish before hiding display
+      setTimeout(() => {
+        lightbox.style.display = 'none';
+        lightboxContent.innerHTML = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }, 300);
     }
 
     grid.addEventListener('click', (e)=>{
       const card = e.target.closest('.card');
       if(!card) return;
       openLightbox(card.getAttribute('data-video'));
+    });
+
+    grid.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter') {
+        const card = e.target.closest('.card');
+        if(!card) return;
+        openLightbox(card.getAttribute('data-video'));
+      }
     });
 
     lbClose.addEventListener('click', closeLightbox);
