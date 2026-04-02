@@ -11,7 +11,6 @@
   
   <style>
     :root {
-      /* 접근성 향상: 눈이 편안한 다크 모드 색상 (Apple 표준 참고) */
       --bg:     #0c0c0c; 
       --bg2:    #151515;
       --fg:     #f5f5f7; 
@@ -19,7 +18,7 @@
       --dim:    #86868b; 
       --border: rgba(255,255,255,0.08);
       --hh:     56px;
-      --gap:    8px; /* 카드가 5개로 늘어나 여백을 약간 조정 */
+      --gap:    8px; 
       --pad:    52px;
     }
 
@@ -27,14 +26,13 @@
     html { scroll-behavior: smooth; }
     
     body {
-      /* Apple Vision Pro 스타일 폰트 스택 */
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--fg);
       padding-top: var(--hh);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      letter-spacing: -0.015em; /* Apple 특유의 자간 */
+      letter-spacing: -0.015em; 
     }
 
     /* ─── HEADER ─── */
@@ -51,7 +49,7 @@
       justify-content: space-between;
       padding: 0 28px;
       z-index: 300;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* 헤더 가독성 보강 */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
     }
     .logo {
       font-weight: 600;
@@ -59,7 +57,7 @@
       letter-spacing: -0.02em;
       color: var(--fg);
       text-decoration: none;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* 텍스트 가독성 보강 */
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
     }
     .logo b { font-weight: 700; color: #fff; }
     nav { display: flex; gap: 4px; }
@@ -105,7 +103,7 @@
       margin-bottom: 20px;
     }
 
-    /* ─── WORK (5 포스터 배열) ─── */
+    /* ─── WORK ─── */
     #work { padding-top: 56px; }
 
     .work-hdr {
@@ -123,25 +121,27 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
+      grid-template-columns: repeat(5, 1fr); 
       gap: var(--gap);
       padding: 0 var(--gap) var(--gap);
     }
 
-    /* ─── CARD (호버 다이내믹스 개선) ─── */
+    /* ─── CARD (Grayscale & Hover Updates) ─── */
     .card {
       position: relative;
       cursor: pointer;
       overflow: hidden;
       background: #111;
-      border-radius: 4px; /* 살짝 둥근 모서리로 현대적 느낌 부여 */
+      border-radius: 4px; 
     }
     .card img {
       width: 100%;
       display: block;
       aspect-ratio: 9 / 13;
       object-fit: cover;
-      transition: transform .72s cubic-bezier(.22,1,.36,1);
+      filter: grayscale(100%); /* 흑백 필터 기본 적용 */
+      /* 스케일 및 흑백 필터 전환 애니메이션 동시 적용 */
+      transition: transform .72s cubic-bezier(.22,1,.36,1), filter .5s ease;
     }
     .card-overlay {
       position: absolute;
@@ -156,7 +156,6 @@
       gap: 6px;
     }
     
-    /* 호버 시 떠오르는 효과를 위해 기본 상태에서 아래로 이동 */
     .card-studio, .card-meta {
       transform: translateY(12px);
       transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -192,14 +191,14 @@
     }
     .play-ring svg { width:7px; height:7px; fill:rgba(255,255,255,.92); margin-left:2px; }
 
-    .card:hover img          { transform: scale(1.05); }
+    /* 호버 시 컬러 복원 및 확대 효과 */
+    .card:hover img          { transform: scale(1.05); filter: grayscale(0%); }
     .card:hover .card-overlay{ opacity: 1; }
-    /* 호버 시 요소들이 위로 떠오름 */
     .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
     .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
     .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
 
-    /* ─── ABOUT (시각화 개선) ─── */
+    /* ─── ABOUT ─── */
     #about {
       background: var(--bg2);
       border-top: 0.5px solid var(--border);
@@ -235,7 +234,6 @@
       margin-bottom: 20px;
     }
     
-    /* 프로필 이미지 영역 신설 */
     .about-img {
       width: 100%;
       aspect-ratio: 4/3;
@@ -535,7 +533,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
