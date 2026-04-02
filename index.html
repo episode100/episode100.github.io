@@ -60,8 +60,6 @@
       text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
     }
     .logo b { font-weight: 700; color: #fff; }
-    
-    /* 메뉴 순서 변경을 위한 Flex 유지 */
     nav { display: flex; gap: 4px; }
     nav a {
       display: block;
@@ -105,10 +103,10 @@
       margin-bottom: 20px;
     }
 
-    /* ─── ABOUT (순서 변경: 최상단) ─── */
+    /* ─── ABOUT ─── */
     #about {
       background: var(--bg2);
-      padding: 140px 0 120px; /* 헤더에 가리지 않도록 상단 여백 대폭 추가 */
+      padding: 140px 0 120px; 
     }
     .about-wrap {
       max-width: 1080px;
@@ -173,11 +171,10 @@
     .credit-film { font-size: 0.9rem; font-weight: 500; color: var(--fg); }
     .credit-role { font-size: 0.8rem; color: var(--muted); }
 
-
-    /* ─── WORK (순서 변경: 중간, 1800px 상한선 유지) ─── */
+    /* ─── WORK ─── */
     #work { 
-      padding: 100px 0 40px; /* About 아래에 오므로 여백 재조정 */
-      border-top: 0.5px solid var(--border); /* 구분선 추가 */
+      padding: 100px 0 40px; 
+      border-top: 0.5px solid var(--border);
     }
 
     .work-hdr {
@@ -204,7 +201,7 @@
       margin: 0 auto;
     }
 
-    /* ─── CARD (흑백 효과 제거, 컬러 유지) ─── */
+    /* ─── CARD ─── */
     .card {
       position: relative;
       cursor: pointer;
@@ -336,7 +333,7 @@
     .foot { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color .2s; }
     a.foot:hover { color: var(--fg); }
 
-    /* ─── LIGHTBOX (모달 스타일 적용) ─── */
+    /* ─── LIGHTBOX (모달 & 네비게이션 적용) ─── */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -414,16 +411,35 @@
       font-weight: 500;
     }
     
+    /* 하단 바 - 좌우 정렬을 위해 수정 */
     .lb-bar { 
       display: flex; 
-      justify-content: flex-end; 
+      justify-content: space-between; /* 왼쪽 화살표, 오른쪽 닫기버튼 분리 */
       align-items: center; 
-      gap: 20px; 
       border-top: 1px solid rgba(255,255,255,0.05);
       padding-top: 24px;
       margin-top: auto; 
     }
-    
+
+    /* 네비게이션 버튼 스타일 (왼쪽) */
+    .lb-nav { display: flex; gap: 12px; }
+    .lb-nav-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--fg);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .lb-nav-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    /* 닫기 영역 스타일 (오른쪽) */
+    .lb-close-area { display: flex; align-items: center; gap: 20px; }
     .lb-close {
       appearance: none;
       background: #2997ff; 
@@ -458,6 +474,9 @@
     @media (max-width: 900px) {
       .lb-body { flex-direction: column; gap: 20px; }
       .lb-video-container, .lb-desc-container { width: 100%; flex: none; }
+      .lb-bar { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
+      .lb-close-area { justify-content: space-between; }
+      .lb-nav { justify-content: center; }
     }
     @media (max-width: 768px) {
       .grid { grid-template-columns: repeat(4,1fr); }
@@ -700,14 +719,21 @@
       <div class="lb-video-container" id="lb-video-container"></div>
       
       <div class="lb-desc-container">
-        <h3>About This Project</h3>
+        <h3 id="lb-desc-title">About This Project</h3>
         <p>여기에 부연 설명을 입력하세요. (This is a placeholder for the supplementary explanation.)<br><br>작품에 대한 상세 정보, 사용된 소프트웨어(Nuke, Blender 등), 담당 역할 등을 자유롭게 기입하여 포트폴리오의 전문성을 높일 수 있습니다.</p>
       </div>
     </div>
     
     <div class="lb-bar">
-      <span class="lb-esc">Esc to close</span>
-      <button class="lb-close" id="lb-close">Close</button>
+      <div class="lb-nav">
+        <button class="lb-nav-btn" id="lb-prev">← Prev</button>
+        <button class="lb-nav-btn" id="lb-next">Next →</button>
+      </div>
+      
+      <div class="lb-close-area">
+        <span class="lb-esc">Esc to close</span>
+        <button class="lb-close" id="lb-close">Close</button>
+      </div>
     </div>
     
   </div>
@@ -749,7 +775,12 @@ document.querySelectorAll('.r, .rs').forEach(el => rio.observe(el));
 const lb      = document.getElementById('lightbox');
 const lbVideo = document.getElementById('lb-video-container'); 
 const lbName  = document.getElementById('lb-name');
+const lbDescTitle = document.getElementById('lb-desc-title');
 const lbClose = document.getElementById('lb-close');
+
+// 모든 카드 요소를 배열로 저장하여 이전/다음 로직에 활용
+const cards = Array.from(document.querySelectorAll('.card'));
+let currentIndex = -1;
 
 function toEmbed(url) {
   if (!url) return '';
@@ -780,10 +811,14 @@ function openLB(rawUrl, title) {
   
   lbVideo.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
   lbName.textContent = title || '';
-  lb.setAttribute('aria-hidden', 'false');
-  document.documentElement.style.overflow = 'hidden';
-  lb.style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('open')));
+  lbDescTitle.textContent = title ? title + " Details" : "About This Project"; // 동적으로 설명란 제목도 변경
+  
+  if (!lb.classList.contains('open')) {
+    lb.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    lb.style.display = 'flex';
+    requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('open')));
+  }
 }
 
 function closeLB() {
@@ -797,20 +832,52 @@ function closeLB() {
   }, 320);
 }
 
+// 다음 포스터 보기
+function showNext() {
+  if (currentIndex < 0) return;
+  currentIndex = (currentIndex + 1) % cards.length;
+  const c = cards[currentIndex];
+  openLB(c.dataset.video, c.dataset.title);
+}
+
+// 이전 포스터 보기
+function showPrev() {
+  if (currentIndex < 0) return;
+  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+  const c = cards[currentIndex];
+  openLB(c.dataset.video, c.dataset.title);
+}
+
+// 클릭 이벤트 리스너
 document.getElementById('grid').addEventListener('click', e => {
   const c = e.target.closest('.card');
-  if (c) openLB(c.dataset.video, c.dataset.title);
+  if (c) {
+    currentIndex = cards.indexOf(c); // 클릭한 카드의 인덱스 저장
+    openLB(c.dataset.video, c.dataset.title);
+  }
 });
+
 document.getElementById('grid').addEventListener('keydown', e => {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   const c = e.target.closest('.card');
   if (!c) return;
   e.preventDefault();
+  currentIndex = cards.indexOf(c);
   openLB(c.dataset.video, c.dataset.title);
 });
+
+document.getElementById('lb-next').addEventListener('click', showNext);
+document.getElementById('lb-prev').addEventListener('click', showPrev);
+
 lbClose.addEventListener('click', closeLB);
 lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
-window.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLB(); });
+
+window.addEventListener('keydown', e => { 
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLB();
+  if (e.key === 'ArrowRight') showNext(); // 키보드 우측 화살표로 다음 이동
+  if (e.key === 'ArrowLeft') showPrev();  // 키보드 좌측 화살표로 이전 이동
+});
 </script>
 </body>
 </html>
