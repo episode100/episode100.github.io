@@ -28,7 +28,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* 처음에는 스크롤을 막아둡니다 (비밀번호 풀리면 해제) */
+    /* Disable scroll initially (Unlocked after password) */
     html, body { 
         height: 100%; 
         background: var(--bg);
@@ -43,13 +43,13 @@
     body.unlocked { overflow: auto; scroll-behavior: smooth; }
 
     /* ══════════════════════════════════════
-       비밀번호 잠금 화면 (Lock Screen)
+       LOCK SCREEN & ACCESS REQUEST
     ══════════════════════════════════════ */
     #lock-screen {
         position: fixed;
         inset: 0;
         background: var(--bg);
-        z-index: 9999; /* 모든 것 위에 표시 */
+        z-index: 9999; 
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -58,7 +58,8 @@
     }
     .lock-box {
         text-align: center;
-        max-width: 400px;
+        width: 100%;
+        max-width: 420px;
         padding: 40px;
         background: rgba(255,255,255,0.03);
         border: 1px solid var(--border);
@@ -105,15 +106,45 @@
         transition: background 0.2s;
     }
     .lock-input-group button:hover { background: #0071e3; }
+    
     #lock-error {
         color: #ff453a;
         font-size: 0.85rem;
         display: none;
     }
 
-    /* ─── MAIN CONTENT (초기에는 숨김) ─── */
+    /* Access Request Form Styles */
+    .full-width-input {
+        width: 100%;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: rgba(0,0,0,0.5);
+        color: var(--fg);
+        font-size: 0.95rem;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .full-width-input:focus { border-color: var(--blue); }
+    textarea.full-width-input { resize: vertical; }
+    
+    .text-link-btn {
+        background: none;
+        border: none;
+        color: var(--blue);
+        font-size: 0.85rem;
+        margin-top: 20px;
+        cursor: pointer;
+        text-decoration: underline;
+        padding: 0;
+    }
+    .text-link-btn:hover { color: #fff; }
+
+    /* ─── MAIN CONTENT (Hidden initially) ─── */
     #main-content {
-        display: none; /* 비밀번호 풀리기 전까지 안 보임 */
+        display: none; 
         opacity: 0;
         transition: opacity 0.5s ease;
         padding-top: var(--hh);
@@ -590,7 +621,6 @@
       .lb-bar          { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
       .lb-close-area   { justify-content: space-between; }
       .lb-nav          { justify-content: center; }
-      .lb-header       { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 768px) {
       .grid   { grid-template-columns: repeat(4,1fr); }
@@ -608,13 +638,34 @@
 
 <div id="lock-screen">
     <div class="lock-box">
-        <h1 class="lock-title">Private Portfolio</h1>
-        <p class="lock-desc">이곳은 프라이빗 포트폴리오입니다.<br>입장을 위해 공유받은 비밀번호를 입력해주세요.</p>
-        <div class="lock-input-group">
-            <input type="password" id="pwd-input" placeholder="Password" />
-            <button id="pwd-submit">Enter</button>
+        
+        <div id="login-form-section">
+            <h1 class="lock-title">Private Portfolio</h1>
+            <p class="lock-desc">This is a private portfolio.<br>Please enter the shared password to access.</p>
+            <div class="lock-input-group">
+                <input type="password" id="pwd-input" placeholder="Password" />
+                <button id="pwd-submit">Enter</button>
+            </div>
+            <p id="lock-error">Incorrect password.</p>
+            
+            <button id="show-request-btn" class="text-link-btn">Need access? Request here</button>
         </div>
-        <p id="lock-error">비밀번호가 올바르지 않습니다.</p>
+
+        <div id="request-form-section" style="display: none;">
+            <h1 class="lock-title">Request Access</h1>
+            <p class="lock-desc">Please provide your details below.</p>
+            
+            <input type="text" id="req-name" placeholder="Your Name" class="full-width-input" />
+            <input type="email" id="req-email" placeholder="Your Email" class="full-width-input" />
+            <textarea id="req-msg" placeholder="Brief description or message" class="full-width-input" rows="3"></textarea>
+            
+            <div class="lock-input-group" style="margin-top:10px;">
+                <button id="req-submit" style="flex:1;">Send Request</button>
+            </div>
+            
+            <button id="show-login-btn" class="text-link-btn">← Back to Password</button>
+        </div>
+
     </div>
 </div>
 
@@ -714,7 +765,9 @@
     <a href="#" class="foot">Back to top ↑</a>
   </footer>
 
-</div> <div class="lightbox" id="lightbox" aria-hidden="true">
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
   <div class="lb-surface" role="dialog" aria-modal="true" aria-labelledby="lb-name">
     <div class="lb-header">
       <p class="lb-name" id="lb-name"></p>
@@ -750,9 +803,8 @@
 </div>
 
 <script>
-/* ── 비밀번호 잠금 로직 ── */
-// 여기에 원하는 공용 비밀번호를 설정하세요. (현재: jayhan2026)
-const SHARED_PASSWORD = "jayhan2026"; 
+/* ── Password Lock & Request Logic ── */
+const SHARED_PASSWORD = "vfx"; 
 
 const pwdInput = document.getElementById('pwd-input');
 const pwdSubmit = document.getElementById('pwd-submit');
@@ -760,9 +812,45 @@ const lockError = document.getElementById('lock-error');
 const lockScreen = document.getElementById('lock-screen');
 const mainContent = document.getElementById('main-content');
 
+const loginFormSection = document.getElementById('login-form-section');
+const requestFormSection = document.getElementById('request-form-section');
+const showRequestBtn = document.getElementById('show-request-btn');
+const showLoginBtn = document.getElementById('show-login-btn');
+const reqSubmit = document.getElementById('req-submit');
+
+/* Handle Form Toggling */
+showRequestBtn.addEventListener('click', () => {
+    loginFormSection.style.display = 'none';
+    requestFormSection.style.display = 'block';
+});
+
+showLoginBtn.addEventListener('click', () => {
+    requestFormSection.style.display = 'none';
+    loginFormSection.style.display = 'block';
+});
+
+/* Handle Access Request Submission (Email dispatch via local client) */
+reqSubmit.addEventListener('click', () => {
+    const name = document.getElementById('req-name').value;
+    const email = document.getElementById('req-email').value;
+    const msg = document.getElementById('req-msg').value;
+    
+    if(!name || !email) {
+        alert("Please enter your name and email.");
+        return;
+    }
+
+    const subject = encodeURIComponent("Portfolio Access Request: " + name);
+    const body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg);
+    
+    // Obfuscated email reconstruction for JS execution
+    const targetEmail = "jk" + "@" + "gmail.com";
+    window.location.href = "mailto:" + targetEmail + "?subject=" + subject + "&body=" + body;
+});
+
+/* Handle Password Verification */
 function checkPassword() {
     if (pwdInput.value === SHARED_PASSWORD) {
-        // 비밀번호 맞음: 잠금 화면 숨기고, 메인 화면 표시, 스크롤 허용
         lockScreen.style.opacity = '0';
         setTimeout(() => {
             lockScreen.style.display = 'none';
@@ -772,12 +860,10 @@ function checkPassword() {
                 document.body.classList.remove('locked');
                 document.body.classList.add('unlocked');
                 
-                // 화면이 보인 후 애니메이션 초기화 로직 실행
                 initializeAnimations();
             }, 50);
         }, 500);
     } else {
-        // 틀림: 에러 메시지 표시
         lockError.style.display = 'block';
         pwdInput.value = '';
         pwdInput.focus();
@@ -789,7 +875,7 @@ pwdInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') checkPassword();
 });
 
-/* ── 메인 콘텐츠 로직 (비밀번호 통과 후 실행됨) ── */
+/* ── Main Content Logic (Executed after unlock) ── */
 const projects = [
   { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', desc: 'Contributed to the groundbreaking multi-style comic book pipeline.' },
   { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles.' },
@@ -801,7 +887,6 @@ const projects = [
   { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', desc: 'Established core compositing conventions for the studio.' },
   { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', studioFull: 'Weta Digital', role: 'VFX Compositor', desc: 'Final composite integration of CG environments and characters with stereo-acquired plate photography.' },
   { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', studioFull: 'Personal Portfolio', role: 'Compositing Supervisor', desc: 'Curated reel of stereoscopic and immersive compositing work.' },
-  // 더 많은 포스터를 원하시면 이 아래로 {} 객체를 추가하세요.
   { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', desc: 'Contributed to the groundbreaking multi-style comic book pipeline.' },
   { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles.' },
   { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositing Supervisor', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature.' },
@@ -845,7 +930,7 @@ projects.forEach((p, i) => {
 
 document.getElementById('work-count').textContent = projects.length + ' Films';
 
-// 애니메이션과 옵저버는 비밀번호를 통과한 후 레이아웃이 계산될 때 실행해야 안전합니다.
+/* Safe initialization for Observers after DOM layout is confirmed */
 function initializeAnimations() {
     const navLinks = document.querySelectorAll('nav a[data-sec]');
     navLinks.forEach(a => {
