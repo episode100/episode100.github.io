@@ -60,6 +60,8 @@
       text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
     }
     .logo b { font-weight: 700; color: #fff; }
+    
+    /* 메뉴 순서 변경을 위한 Flex 유지 */
     nav { display: flex; gap: 4px; }
     nav a {
       display: block;
@@ -103,108 +105,10 @@
       margin-bottom: 20px;
     }
 
-    /* ─── WORK (10 포스터 배열, 1800px 상한선 적용) ─── */
-    #work { padding-top: 56px; }
-
-    .work-hdr {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 0 var(--gap) 18px;
-      max-width: 1800px; /* 무한정 커지지 않도록 1800px 상한선 복구 */
-      margin: 0 auto;
-    }
-    .work-count {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr); 
-      gap: var(--gap);
-      padding: 0 var(--gap) var(--gap);
-      max-width: 1800px; /* 무한정 커지지 않도록 1800px 상한선 복구 */
-      margin: 0 auto;
-    }
-
-    /* ─── CARD (Grayscale & Hover) ─── */
-    .card {
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      background: #111;
-      border-radius: 4px; 
-    }
-    .card img {
-      width: 100%;
-      display: block;
-      aspect-ratio: 9 / 13;
-      object-fit: cover;
-      filter: grayscale(100%); 
-      transition: transform .72s cubic-bezier(.22,1,.36,1), filter .5s ease;
-    }
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 40%, transparent 100%);
-      opacity: 0;
-      transition: opacity .4s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 10px 8px; 
-      gap: 4px;
-    }
-    
-    .card-studio, .card-meta {
-      transform: translateY(12px);
-      transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .card-studio {
-      font-size: 0.45rem; 
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.6);
-    }
-    .card-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
-    }
-    .card-title {
-      font-size: 0.6rem; 
-      font-weight: 500;
-      letter-spacing: 0;
-      color: rgba(255,255,255,.95);
-      line-height: 1.2;
-    }
-    .play-ring {
-      width: 20px; height: 20px;
-      border: 1px solid rgba(255,255,255,.4);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: background .2s, border-color .2s;
-    }
-    .play-ring svg { width:6px; height:6px; fill:rgba(255,255,255,.92); margin-left:1px; }
-
-    .card:hover img          { transform: scale(1.08); filter: grayscale(0%); }
-    .card:hover .card-overlay{ opacity: 1; }
-    .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
-    .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
-    .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
-
-    /* ─── ABOUT ─── */
+    /* ─── ABOUT (순서 변경: 최상단) ─── */
     #about {
       background: var(--bg2);
-      border-top: 0.5px solid var(--border);
-      padding: 100px 0 120px;
+      padding: 140px 0 120px; /* 헤더에 가리지 않도록 상단 여백 대폭 추가 */
     }
     .about-wrap {
       max-width: 1080px;
@@ -269,6 +173,106 @@
     .credit-film { font-size: 0.9rem; font-weight: 500; color: var(--fg); }
     .credit-role { font-size: 0.8rem; color: var(--muted); }
 
+
+    /* ─── WORK (순서 변경: 중간, 1800px 상한선 유지) ─── */
+    #work { 
+      padding: 100px 0 40px; /* About 아래에 오므로 여백 재조정 */
+      border-top: 0.5px solid var(--border); /* 구분선 추가 */
+    }
+
+    .work-hdr {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 0 var(--gap) 18px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+    .work-count {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr); 
+      gap: var(--gap);
+      padding: 0 var(--gap) var(--gap);
+      max-width: 1800px; 
+      margin: 0 auto;
+    }
+
+    /* ─── CARD (흑백 효과 제거, 컬러 유지) ─── */
+    .card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: #111;
+      border-radius: 4px; 
+    }
+    .card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9 / 13;
+      object-fit: cover;
+      transition: transform .72s cubic-bezier(.22,1,.36,1); 
+    }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 40%, transparent 100%);
+      opacity: 0;
+      transition: opacity .4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10px 8px; 
+      gap: 4px;
+    }
+    
+    .card-studio, .card-meta {
+      transform: translateY(12px);
+      transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .card-studio {
+      font-size: 0.45rem; 
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .card-title {
+      font-size: 0.6rem; 
+      font-weight: 500;
+      letter-spacing: 0;
+      color: rgba(255,255,255,.95);
+      line-height: 1.2;
+    }
+    .play-ring {
+      width: 20px; height: 20px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+    .play-ring svg { width:6px; height:6px; fill:rgba(255,255,255,.92); margin-left:1px; }
+
+    .card:hover img          { transform: scale(1.08); } 
+    .card:hover .card-overlay{ opacity: 1; }
+    .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
+    .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
+    .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
+
     /* ─── CONTACT ─── */
     #contact {
       background: var(--bg);
@@ -332,11 +336,11 @@
     .foot { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color .2s; }
     a.foot:hover { color: var(--fg); }
 
-    /* ─── LIGHTBOX ─── */
+    /* ─── LIGHTBOX (모달 스타일 적용) ─── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.95);
+      background: rgba(0,0,0,.85); 
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       display: none;
@@ -345,32 +349,81 @@
       z-index: 1000;
       opacity: 0;
       transition: opacity .3s ease;
+      padding: 20px; 
     }
     .lightbox.open { opacity: 1; }
+    
     .lb-surface {
-      width: min(1440px,96vw);
+      width: 100%;
+      max-width: 1200px; 
+      max-height: 90vh; 
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      overflow-y: auto; 
+    }
+    
+    .lb-header {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
     }
     .lb-name {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: .05em;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: .02em;
       color: var(--fg);
+      margin: 0;
     }
-    #lb-content iframe {
-      width: min(1440px,96vw);
+    
+    .lb-body {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+    
+    .lb-video-container {
+      flex: 2;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .lb-video-container iframe {
+      width: 100%;
       aspect-ratio: 16/9;
       border: none;
       display: block;
-      border-radius: 8px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
-    .lb-bar { display: flex; align-items: center; gap: 20px; }
     
-    /* Close 버튼 시각적 강화 유지 */
+    .lb-desc-container {
+      flex: 1;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .lb-desc-container h3 {
+      color: var(--fg);
+      font-size: 1.05rem;
+      margin: 0 0 12px 0;
+      font-weight: 500;
+    }
+    
+    .lb-bar { 
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: center; 
+      gap: 20px; 
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 24px;
+      margin-top: auto; 
+    }
+    
     .lb-close {
       appearance: none;
       background: #2997ff; 
@@ -388,7 +441,6 @@
     }
     .lb-close:hover { background: #fff; color: #2997ff; transform: scale(1.05); }
     .lb-close:focus { outline: 2px solid #2997ff; outline-offset: 2px; }
-    
     .lb-esc { font-size: 0.65rem; color: var(--dim); }
 
     /* ─── RESPONSIVE ─── */
@@ -403,6 +455,10 @@
       .ctile:last-child { border-bottom: none; }
       :root { --pad: 28px; }
     }
+    @media (max-width: 900px) {
+      .lb-body { flex-direction: column; gap: 20px; }
+      .lb-video-container, .lb-desc-container { width: 100%; flex: none; }
+    }
     @media (max-width: 768px) {
       .grid { grid-template-columns: repeat(4,1fr); }
     }
@@ -410,6 +466,7 @@
       .grid { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
       .credits-grid { grid-template-columns: 1fr; }
       nav a { padding: 5px 10px; font-size: 0.7rem; }
+      .lb-surface { padding: 20px; }
     }
   </style>
 </head>
@@ -418,11 +475,61 @@
 <header>
   <a href="#" class="logo"><b>Jay Han</b> — VFX Compositor</a>
   <nav id="nav">
-    <a href="#work"    data-sec="work">Work</a>
     <a href="#about"   data-sec="about">About</a>
+    <a href="#work"    data-sec="work">Work</a>
     <a href="#contact" data-sec="contact">Contact</a>
   </nav>
 </header>
+
+<section id="about">
+  <div class="about-wrap">
+    <span class="eyebrow r">About</span>
+    <h2 class="about-hl r">
+      20 years of visual effects.<br>
+      <em style="display:block; margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
+    </h2>
+    <div class="about-cols">
+      <div class="about-text r">
+        <p class="about-p">
+          Jay Han is a Compositing Supervisor based in Vancouver with two decades
+          of experience in Hollywood VFX and feature animation. His work spans
+          Academy Award–winning productions including Spider-Man: Into the Spider-Verse
+          and Avatar.
+        </p>
+        <p class="about-p">
+          Beyond the studio, Jay teaches digital compositing and actively contributes
+          to the VFX community, presenting at SIGGRAPH Asia on the intersection of cultural storytelling
+          and next-generation pipeline techniques.
+        </p>
+      </div>
+      <div class="about-img r" style="transition-delay:.1s">
+        <img src="assets/posters/poster01.jpg" alt="Jay Han Workspace" loading="lazy">
+      </div>
+    </div>
+    
+    <div class="about-credits r">
+      <p class="credits-label">Selected Credits</p>
+      <div class="credits-grid">
+        <div class="credit">
+          <span class="credit-film">Spider-Man: Into the Spider-Verse</span>
+          <span class="credit-role">Compositor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">Avatar</span>
+          <span class="credit-role">VFX Compositor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">K-Pop Demon Hunters</span>
+          <span class="credit-role">Compositing Supervisor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">SIGGRAPH Asia 2025</span>
+          <span class="credit-role">Presenter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="work">
   <div class="work-hdr r">
@@ -556,56 +663,6 @@
   </div>
 </section>
 
-<section id="about">
-  <div class="about-wrap">
-    <span class="eyebrow r">About</span>
-    <h2 class="about-hl r">
-      20 years of visual effects.<br>
-      <em style="display:block; margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
-    </h2>
-    <div class="about-cols">
-      <div class="about-text r">
-        <p class="about-p">
-          Jay Han is a Compositing Supervisor based in Vancouver with two decades
-          of experience in Hollywood VFX and feature animation. His work spans
-          Academy Award–winning productions including Spider-Man: Into the Spider-Verse
-          and Avatar.
-        </p>
-        <p class="about-p">
-          Beyond the studio, Jay teaches digital compositing and actively contributes
-          to the VFX community, presenting at SIGGRAPH Asia on the intersection of cultural storytelling
-          and next-generation pipeline techniques.
-        </p>
-      </div>
-      <div class="about-img r" style="transition-delay:.1s">
-        <img src="assets/posters/poster01.jpg" alt="Jay Han Workspace" loading="lazy">
-      </div>
-    </div>
-    
-    <div class="about-credits r">
-      <p class="credits-label">Selected Credits</p>
-      <div class="credits-grid">
-        <div class="credit">
-          <span class="credit-film">Spider-Man: Into the Spider-Verse</span>
-          <span class="credit-role">Compositor</span>
-        </div>
-        <div class="credit">
-          <span class="credit-film">Avatar</span>
-          <span class="credit-role">VFX Compositor</span>
-        </div>
-        <div class="credit">
-          <span class="credit-film">K-Pop Demon Hunters</span>
-          <span class="credit-role">Compositing Supervisor</span>
-        </div>
-        <div class="credit">
-          <span class="credit-film">SIGGRAPH Asia 2025</span>
-          <span class="credit-role">Presenter</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="contact">
   <div class="contact-wrap">
     <span class="eyebrow r">Contact</span>
@@ -634,12 +691,25 @@
 
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <div class="lb-surface" role="dialog" aria-modal="true">
-    <p class="lb-name" id="lb-name"></p>
-    <div id="lb-content"></div>
-    <div class="lb-bar">
-      <button class="lb-close" id="lb-close">Close</button>
-      <span class="lb-esc">Esc to close</span>
+    
+    <div class="lb-header">
+      <p class="lb-name" id="lb-name"></p>
     </div>
+    
+    <div class="lb-body">
+      <div class="lb-video-container" id="lb-video-container"></div>
+      
+      <div class="lb-desc-container">
+        <h3>About This Project</h3>
+        <p>여기에 부연 설명을 입력하세요. (This is a placeholder for the supplementary explanation.)<br><br>작품에 대한 상세 정보, 사용된 소프트웨어(Nuke, Blender 등), 담당 역할 등을 자유롭게 기입하여 포트폴리오의 전문성을 높일 수 있습니다.</p>
+      </div>
+    </div>
+    
+    <div class="lb-bar">
+      <span class="lb-esc">Esc to close</span>
+      <button class="lb-close" id="lb-close">Close</button>
+    </div>
+    
   </div>
 </div>
 
@@ -677,7 +747,7 @@ document.querySelectorAll('.r, .rs').forEach(el => rio.observe(el));
 
 /* ── LIGHTBOX ── */
 const lb      = document.getElementById('lightbox');
-const lbCon   = document.getElementById('lb-content');
+const lbVideo = document.getElementById('lb-video-container'); 
 const lbName  = document.getElementById('lb-name');
 const lbClose = document.getElementById('lb-close');
 
@@ -707,7 +777,8 @@ function openLB(rawUrl, title) {
   let src = toEmbed(rawUrl);
   // Mute 파라미터 유지
   if (src) src += (src.includes('?') ? '&' : '?') + 'autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&title=0&byline=0&portrait=0';
-  lbCon.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
+  
+  lbVideo.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
   lbName.textContent = title || '';
   lb.setAttribute('aria-hidden', 'false');
   document.documentElement.style.overflow = 'hidden';
@@ -720,7 +791,7 @@ function closeLB() {
   lb.setAttribute('aria-hidden', 'true');
   setTimeout(() => {
     lb.style.display = '';
-    lbCon.innerHTML = '';
+    lbVideo.innerHTML = '';
     lbName.textContent = '';
     document.documentElement.style.overflow = '';
   }, 320);
