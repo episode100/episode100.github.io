@@ -18,7 +18,7 @@
       --dim:    #86868b; 
       --border: rgba(255,255,255,0.08);
       --hh:     56px;
-      --gap:    4px; /* 크기 축소에 맞춰 간격 축소 */
+      --gap:    6px; 
       --pad:    52px;
     }
 
@@ -103,7 +103,7 @@
       margin-bottom: 20px;
     }
 
-    /* ─── WORK (10 포스터 배열, 사이즈 50% 축소) ─── */
+    /* ─── WORK (10 포스터 배열, 1800px 상한선 적용) ─── */
     #work { padding-top: 56px; }
 
     .work-hdr {
@@ -111,7 +111,7 @@
       align-items: baseline;
       justify-content: space-between;
       padding: 0 var(--gap) 18px;
-      max-width: 900px; /* 기존 1800px에서 50% 축소 */
+      max-width: 1800px; /* 무한정 커지지 않도록 1800px 상한선 복구 */
       margin: 0 auto;
     }
     .work-count {
@@ -126,17 +126,17 @@
       grid-template-columns: repeat(10, 1fr); 
       gap: var(--gap);
       padding: 0 var(--gap) var(--gap);
-      max-width: 900px; /* 전체 너비 제한으로 이미지 사이즈 물리적 축소 */
+      max-width: 1800px; /* 무한정 커지지 않도록 1800px 상한선 복구 */
       margin: 0 auto;
     }
 
-    /* ─── CARD ─── */
+    /* ─── CARD (Grayscale & Hover) ─── */
     .card {
       position: relative;
       cursor: pointer;
       overflow: hidden;
       background: #111;
-      border-radius: 2px; 
+      border-radius: 4px; 
     }
     .card img {
       width: 100%;
@@ -149,60 +149,56 @@
     .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.4) 50%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 40%, transparent 100%);
       opacity: 0;
       transition: opacity .4s ease;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 6px 4px; /* 카드 축소에 맞춘 패딩 조절 */
-      gap: 2px;
+      padding: 10px 8px; 
+      gap: 4px;
     }
     
     .card-studio, .card-meta {
-      transform: translateY(8px);
+      transform: translateY(12px);
       transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .card-studio {
-      font-size: 0.35rem; 
+      font-size: 0.45rem; 
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(255,255,255,.6);
-      display: none; /* 크기가 너무 작아져 시각적 깔끔함을 위해 스튜디오 이름 숨김 */
     }
     .card-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2px;
+      gap: 4px;
     }
     .card-title {
-      font-size: 0.45rem; /* 글꼴 크기 대폭 축소 */
+      font-size: 0.6rem; 
       font-weight: 500;
       letter-spacing: 0;
       color: rgba(255,255,255,.95);
-      line-height: 1.1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.2;
     }
     .play-ring {
-      width: 14px; height: 14px;
-      border: 1px solid rgba(255,255,255,.5);
+      width: 20px; height: 20px;
+      border: 1px solid rgba(255,255,255,.4);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       transition: background .2s, border-color .2s;
     }
-    .play-ring svg { width:5px; height:5px; fill:rgba(255,255,255,.92); margin-left:1px; }
+    .play-ring svg { width:6px; height:6px; fill:rgba(255,255,255,.92); margin-left:1px; }
 
-    .card:hover img          { transform: scale(1.15); filter: grayscale(0%); }
+    .card:hover img          { transform: scale(1.08); filter: grayscale(0%); }
     .card:hover .card-overlay{ opacity: 1; }
     .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
-    .card:hover .play-ring   { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.9); }
-    .card:focus-visible      { outline: 1px solid #2997ff; outline-offset: 1px; z-index:1; }
+    .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
+    .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
 
     /* ─── ABOUT ─── */
     #about {
@@ -211,7 +207,7 @@
       padding: 100px 0 120px;
     }
     .about-wrap {
-      max-width: 900px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0 var(--pad);
     }
@@ -280,7 +276,7 @@
       padding: 100px 0 120px;
     }
     .contact-wrap {
-      max-width: 900px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0 var(--pad);
     }
@@ -373,25 +369,33 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
     .lb-bar { display: flex; align-items: center; gap: 20px; }
+    
+    /* Close 버튼 시각적 강화 유지 */
     .lb-close {
       appearance: none;
-      background: rgba(255,255,255,0.1);
+      background: #2997ff; 
       border: none;
-      color: var(--fg);
-      padding: 10px 32px;
+      color: #fff; 
+      padding: 12px 40px; 
       font-family: inherit;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 20px;
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      border-radius: 24px; 
       letter-spacing: .05em;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: background .2s, transform .2s;
+      transition: background .2s, color .2s, transform .2s, outline .2s;
     }
-    .lb-close:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .lb-close:hover { background: #fff; color: #2997ff; transform: scale(1.05); }
+    .lb-close:focus { outline: 2px solid #2997ff; outline-offset: 2px; }
+    
     .lb-esc { font-size: 0.65rem; color: var(--dim); }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
+    @media (max-width: 1400px) {
+      .grid { grid-template-columns: repeat(8,1fr); }
+    }
+    @media (max-width: 1100px) {
       .grid { grid-template-columns: repeat(5,1fr); }
       .about-cols { grid-template-columns: 1fr; gap: 32px; }
       .contact-tiles { grid-template-columns: 1fr; }
@@ -399,8 +403,11 @@
       .ctile:last-child { border-bottom: none; }
       :root { --pad: 28px; }
     }
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: repeat(4,1fr); }
+    }
     @media (max-width: 480px) {
-      .grid { grid-template-columns: repeat(3,1fr); gap: 4px; padding: 0 4px 4px; }
+      .grid { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
       .credits-grid { grid-template-columns: 1fr; }
       nav a { padding: 5px 10px; font-size: 0.7rem; }
     }
@@ -420,90 +427,131 @@
 <section id="work">
   <div class="work-hdr r">
     <span class="eyebrow" style="margin:0;">Selected Work</span>
-    <span class="work-count">20 Films</span>
+    <span class="work-count">30 Films</span>
   </div>
 
   <div class="grid" id="grid">
     <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
       <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
       <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Across Spider</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
       <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
       <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Mitchells</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
       <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
       <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
       <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
       <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Hotel Transyl</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
       <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
       <img src="assets/posters/poster10.jpg" alt="Poster 10" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
 
     <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
       <img src="assets/posters/poster01.jpg" alt="Poster 11" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
       <img src="assets/posters/poster02.jpg" alt="Poster 12" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Across Spider</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
       <img src="assets/posters/poster03.jpg" alt="Poster 13" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
       <img src="assets/posters/poster04.jpg" alt="Poster 14" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Mitchells</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
       <img src="assets/posters/poster05.jpg" alt="Poster 15" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
       <img src="assets/posters/poster06.jpg" alt="Poster 16" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
       <img src="assets/posters/poster07.jpg" alt="Poster 17" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
       <img src="assets/posters/poster08.jpg" alt="Poster 18" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Hotel Transyl</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
       <img src="assets/posters/poster09.jpg" alt="Poster 19" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
     <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
       <img src="assets/posters/poster10.jpg" alt="Poster 20" loading="lazy">
-      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+
+    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster01.jpg" alt="Poster 21" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Into the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster02.jpg" alt="Poster 22" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Across the Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
+      <img src="assets/posters/poster03.jpg" alt="Poster 23" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">K-Pop Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
+      <img src="assets/posters/poster04.jpg" alt="Poster 24" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Mitchells vs. Machines</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
+      <img src="assets/posters/poster05.jpg" alt="Poster 25" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">DreamWorks</span><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
+      <img src="assets/posters/poster06.jpg" alt="Poster 26" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
+      <img src="assets/posters/poster07.jpg" alt="Poster 27" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA Studios</span><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
+      <img src="assets/posters/poster08.jpg" alt="Poster 28" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Hotel Transylvania</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
+      <img src="assets/posters/poster09.jpg" alt="Poster 29" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">SPA</span><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
+      <img src="assets/posters/poster10.jpg" alt="Poster 30" loading="lazy">
+      <div class="card-overlay"><span class="card-studio">Portfolio</span><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
     </div>
   </div>
 </section>
@@ -606,7 +654,6 @@ navLinks.forEach(a => {
   });
 });
 
-/* 수정부분: 문법 오류를 제거하고 정상적인 IIFE로 옵저버 실행 복구 */
 (function(){
   const sio = new IntersectionObserver(entries => {
     entries.forEach(en => {
@@ -658,7 +705,8 @@ function toEmbed(url) {
 
 function openLB(rawUrl, title) {
   let src = toEmbed(rawUrl);
-  if (src) src += (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&modestbranding=1&playsinline=1&title=0&byline=0&portrait=0';
+  // Mute 파라미터 유지
+  if (src) src += (src.includes('?') ? '&' : '?') + 'autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&title=0&byline=0&portrait=0';
   lbCon.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
   lbName.textContent = title || '';
   lb.setAttribute('aria-hidden', 'false');
