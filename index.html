@@ -28,7 +28,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* Disable scroll initially (Unlocked after password) */
+    /* Disable scroll initially (Unlocked after password verification) */
     html, body { 
         height: 100%; 
         background: var(--bg);
@@ -43,9 +43,9 @@
     body.unlocked { overflow: auto; scroll-behavior: smooth; }
 
     /* ══════════════════════════════════════
-       LOCK SCREEN & ACCESS REQUEST
+       LOCK SCREEN, ACCESS REQUEST & CONTACT MODAL
     ══════════════════════════════════════ */
-    #lock-screen {
+    #lock-screen, #contact-modal {
         position: fixed;
         inset: 0;
         background: var(--bg);
@@ -56,6 +56,18 @@
         justify-content: center;
         transition: opacity 0.5s ease;
     }
+    #contact-modal {
+        background: rgba(12, 12, 12, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: none;
+        opacity: 0;
+    }
+    #contact-modal.open {
+        display: flex;
+        opacity: 1;
+    }
+
     .lock-box {
         text-align: center;
         width: 100%;
@@ -65,6 +77,7 @@
         border: 1px solid var(--border);
         border-radius: 12px;
         box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        position: relative;
     }
     .lock-title {
         font-size: 1.5rem;
@@ -113,7 +126,7 @@
         display: none;
     }
 
-    /* Access Request Form Styles */
+    /* Form Input Styles */
     .full-width-input {
         width: 100%;
         padding: 12px 16px;
@@ -141,6 +154,21 @@
         padding: 0;
     }
     .text-link-btn:hover { color: #fff; }
+
+    /* Modal Close Button */
+    .modal-close-icon {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border: none;
+        color: var(--dim);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 4px;
+        transition: color 0.2s;
+    }
+    .modal-close-icon:hover { color: var(--fg); }
 
     /* ─── MAIN CONTENT (Hidden initially) ─── */
     #main-content {
@@ -416,7 +444,7 @@
       color: var(--muted);
     }
 
-    /* ─── FILTER BAR (RESTORED) ─── */
+    /* ─── FILTER BAR ─── */
     .filter-bar {
       display: flex;
       gap: 8px;
@@ -573,7 +601,10 @@
       transition: color .2s;
     }
     a.ctile-val:hover { color: #fff; }
-    span.ctile-val.obfuscated { cursor: default; user-select: text; }
+    
+    /* Email Tile Interactive Style */
+    #contact-email-btn { cursor: pointer; }
+    #contact-email-btn:hover .ctile-val { color: #fff; text-decoration: underline; }
 
     /* ─── FOOTER ─── */
     footer {
@@ -590,23 +621,23 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.86);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.85); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       opacity: 0;
       transition: opacity .3s ease;
-      padding: 20px;
+      padding: 20px; 
     }
     .lightbox.open { opacity: 1; }
-
+    
     .lb-surface {
       width: 100%;
-      max-width: 1200px;
-      max-height: 90vh;
+      max-width: 1200px; 
+      max-height: 90vh; 
       background: #111;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
@@ -614,31 +645,29 @@
       flex-direction: column;
       padding: 30px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-      overflow-y: auto;
+      overflow-y: auto; 
     }
+    
     .lb-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       padding-bottom: 16px;
       margin-bottom: 24px;
     }
     .lb-name {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 600;
+      letter-spacing: .02em;
       color: var(--fg);
       margin: 0;
-      flex: 1;
-      line-height: 1.3;
     }
+    
     .lb-body {
       display: flex;
       gap: 30px;
       align-items: flex-start;
       margin-bottom: 30px;
     }
+    
     .lb-video-container {
       flex: 2;
       background: #000;
@@ -652,32 +681,34 @@
       border: none;
       display: block;
     }
-    .lb-desc {
+    
+    .lb-desc-container {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
-    .lb-desc h3 { color: var(--fg); font-size: 1rem; font-weight: 500; margin: 0; }
-    .lb-desc-meta { display: flex; flex-direction: column; gap: 6px; }
-    .lb-desc-row { display: flex; gap: 6px; font-size: 0.72rem; }
-    .lb-desc-label { font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dim); min-width: 48px; }
-    .lb-desc-val { color: var(--muted); }
-    .lb-desc-body { font-size: 0.9rem; line-height: 1.65; color: var(--muted); border-top: 0.5px solid rgba(255,255,255,0.06); padding-top: 12px; }
-
-    .lb-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .lb-desc-container h3 {
+      color: var(--fg);
+      font-size: 1.05rem;
+      margin: 0 0 12px 0;
+      font-weight: 500;
+    }
+    
+    .lb-bar { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
       border-top: 1px solid rgba(255,255,255,0.05);
       padding-top: 24px;
-      margin-top: auto;
+      margin-top: auto; 
     }
-    .lb-nav { display: flex; gap: 10px; align-items: center; }
+
+    .lb-nav { display: flex; gap: 12px; }
     .lb-nav-btn {
       appearance: none;
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.2);
       color: var(--fg);
       padding: 10px 20px;
       border-radius: 20px;
@@ -685,57 +716,53 @@
       font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background .2s, border-color .2s;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .lb-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.45); }
+    .lb-nav-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
     .lb-close-area { display: flex; align-items: center; gap: 20px; }
-    .lb-esc { font-size: 0.6rem; color: var(--dim); line-height: 1.6; text-align: right; }
     .lb-close {
       appearance: none;
-      background: var(--blue);
+      background: #2997ff; 
       border: none;
-      color: #fff;
-      padding: 12px 40px;
+      color: #fff; 
+      padding: 12px 40px; 
       font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border-radius: 24px;
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      border-radius: 24px; 
       letter-spacing: .05em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background .2s, color .2s, transform .2s;
+      transition: background .2s, color .2s, transform .2s, outline .2s;
     }
-    .lb-close:hover { background: #fff; color: var(--blue); transform: scale(1.04); }
-    .lb-close:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .lb-close:hover { background: #fff; color: #2997ff; transform: scale(1.05); }
+    .lb-close:focus { outline: 2px solid #2997ff; outline-offset: 2px; }
+    .lb-esc { font-size: 0.65rem; color: var(--dim); }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1400px) { .grid { grid-template-columns: repeat(8,1fr); } }
     @media (max-width: 1100px) {
-      .grid         { grid-template-columns: repeat(5,1fr); }
-      .about-cols   { grid-template-columns: 1fr; gap: 32px; }
-      .contact-tiles{ grid-template-columns: 1fr; }
-      .ctile        { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .grid { grid-template-columns: repeat(5,1fr); }
+      .about-cols { grid-template-columns: 1fr; gap: 32px; }
+      .contact-tiles { grid-template-columns: 1fr; }
+      .ctile { border-right: none; border-bottom: 0.5px solid var(--border); }
       .ctile:last-child { border-bottom: none; }
       :root { --pad: 28px; }
     }
     @media (max-width: 900px) {
-      .lb-body         { flex-direction: column; gap: 20px; }
-      .lb-video-container, .lb-desc { width: 100%; flex: none; }
-      .lb-bar          { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
-      .lb-close-area   { justify-content: space-between; }
-      .lb-nav          { justify-content: center; }
+      .lb-body { flex-direction: column; gap: 20px; }
+      .lb-video-container, .lb-desc-container { width: 100%; flex: none; }
+      .lb-bar { flex-direction: column-reverse; gap: 20px; align-items: stretch; }
+      .lb-close-area { justify-content: space-between; }
+      .lb-nav { justify-content: center; }
     }
-    @media (max-width: 768px) {
-      .grid   { grid-template-columns: repeat(4,1fr); }
-      .hero-hl{ font-size: clamp(2.4rem, 10vw, 4rem); }
-    }
+    @media (max-width: 768px) { .grid { grid-template-columns: repeat(4,1fr); } }
     @media (max-width: 480px) {
-      .grid         { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
+      .grid { grid-template-columns: repeat(2,1fr); gap: 6px; padding: 0 6px 6px; }
       .credits-grid { grid-template-columns: 1fr; }
-      nav a         { padding: 5px 10px; font-size: 0.7rem; }
-      .lb-surface   { padding: 20px; }
-      .hero-hl      { font-size: clamp(1.9rem, 12vw, 3rem); letter-spacing: -0.03em; }
-      .hero-credits { display: none; }
+      nav a { padding: 5px 10px; font-size: 0.7rem; }
+      .lb-surface { padding: 20px; }
     }
   </style>
 </head>
@@ -772,6 +799,22 @@
             <button id="show-login-btn" class="text-link-btn">← Back to Password</button>
         </div>
 
+    </div>
+</div>
+
+<div id="contact-modal" aria-hidden="true">
+    <div class="lock-box">
+        <button class="modal-close-icon" id="contact-modal-close">✕</button>
+        <h1 class="lock-title">Send a Message</h1>
+        <p class="lock-desc">Your default email client will open.</p>
+        
+        <input type="text" id="contact-name" placeholder="Your Name" class="full-width-input" />
+        <input type="email" id="contact-email" placeholder="Your Email" class="full-width-input" />
+        <textarea id="contact-msg" placeholder="Your message" class="full-width-input" rows="4"></textarea>
+        
+        <div class="lock-input-group" style="margin-top:10px;">
+            <button id="contact-submit" style="flex:1;">Send Email</button>
+        </div>
     </div>
 </div>
 
@@ -878,18 +921,22 @@
       <span class="eyebrow r">Contact</span>
       <h2 class="contact-hl r">Let's work<br>together.</h2>
       <div class="contact-tiles rs">
-        <div class="ctile">
+        
+        <div class="ctile" id="contact-email-btn">
           <span class="ctile-label">Email</span>
-          <span class="ctile-val obfuscated">jk [at] gmail.com</span>
+          <span class="ctile-val">Send a message</span>
         </div>
+        
         <div class="ctile">
           <span class="ctile-label">LinkedIn</span>
           <a href="https://linkedin.com/in/jiwoonkim" target="_blank" rel="noopener" class="ctile-val">linkedin.com/in/jiwoonkim</a>
         </div>
+        
         <div class="ctile">
-          <span class="ctile-label">Location</span>
-          <span class="ctile-val">Vancouver, BC · Canada</span>
+          <span class="ctile-label">IMDb</span>
+          <a href="https://www.imdb.com/name/nm2858122/" target="_blank" rel="noopener" class="ctile-val">imdb.com/name/nm2858122/</a>
         </div>
+        
       </div>
     </div>
   </section>
@@ -901,26 +948,20 @@
 
 </div> <div class="lightbox" id="lightbox" aria-hidden="true">
   <div class="lb-surface" role="dialog" aria-modal="true" aria-labelledby="lb-name">
+    
     <div class="lb-header">
       <p class="lb-name" id="lb-name"></p>
     </div>
+    
     <div class="lb-body">
       <div class="lb-video-container" id="lb-video-container"></div>
-      <div class="lb-desc">
+      
+      <div class="lb-desc-container">
         <h3 id="lb-desc-title">About This Project</h3>
-        <div class="lb-desc-meta">
-          <div class="lb-desc-row">
-            <span class="lb-desc-label">Role</span>
-            <span class="lb-desc-val" id="lb-role"></span>
-          </div>
-          <div class="lb-desc-row">
-            <span class="lb-desc-label">Studio</span>
-            <span class="lb-desc-val" id="lb-studio"></span>
-          </div>
-        </div>
         <p class="lb-desc-body" id="lb-desc-body"></p>
       </div>
     </div>
+    
     <div class="lb-bar">
       <div class="lb-nav">
         <button class="lb-nav-btn" id="lb-prev">← Prev</button>
@@ -931,11 +972,36 @@
         <button class="lb-close" id="lb-close">Close</button>
       </div>
     </div>
+    
   </div>
 </div>
 
 <script>
-/* ── Password Lock & Request Logic ── */
+/* ── Email Dispatch Logic (Local Client Fallback) ── */
+function dispatchEmail(nameId, emailId, msgId, subjectPrefix) {
+    const name = document.getElementById(nameId).value;
+    const email = document.getElementById(emailId).value;
+    const msg = document.getElementById(msgId).value;
+    
+    if(!name || !email) {
+        alert("Please enter your name and email.");
+        return;
+    }
+
+    const subject = encodeURIComponent(subjectPrefix + name);
+    const body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg);
+    const targetEmail = "jk" + "@" + "gmail.com"; // Obfuscated email
+    
+    // Attempt to open the default email client via mailto
+    window.location.href = "mailto:" + targetEmail + "?subject=" + subject + "&body=" + body;
+    
+    // Alert the user explaining the limitation of static hosting
+    setTimeout(() => {
+        alert("Opening your default email app...\n\nIf nothing happens, your browser does not have a default email client set up. Please manually email: jk@gmail.com");
+    }, 500);
+}
+
+/* ── Password Lock & Request Access Logic ── */
 const SHARED_PASSWORD = "vfx"; 
 
 const pwdInput = document.getElementById('pwd-input');
@@ -961,23 +1027,9 @@ showLoginBtn.addEventListener('click', () => {
     loginFormSection.style.display = 'block';
 });
 
-/* Handle Access Request Submission */
+/* Execute Access Request Email Dispatch */
 reqSubmit.addEventListener('click', () => {
-    const name = document.getElementById('req-name').value;
-    const email = document.getElementById('req-email').value;
-    const msg = document.getElementById('req-msg').value;
-    
-    if(!name || !email) {
-        alert("Please enter your name and email.");
-        return;
-    }
-
-    const subject = encodeURIComponent("Portfolio Access Request: " + name);
-    const body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg);
-    
-    // Obfuscated email reconstruction for JS execution
-    const targetEmail = "jk" + "@" + "gmail.com";
-    window.location.href = "mailto:" + targetEmail + "?subject=" + subject + "&body=" + body;
+    dispatchEmail('req-name', 'req-email', 'req-msg', 'Portfolio Access Request: ');
 });
 
 /* Handle Password Verification */
@@ -1007,40 +1059,66 @@ pwdInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') checkPassword();
 });
 
+/* ── Contact Modal Logic ── */
+const contactModal = document.getElementById('contact-modal');
+const contactEmailBtn = document.getElementById('contact-email-btn');
+const contactModalClose = document.getElementById('contact-modal-close');
+const contactSubmit = document.getElementById('contact-submit');
+
+contactEmailBtn.addEventListener('click', () => {
+    contactModal.style.display = 'flex';
+    setTimeout(() => { contactModal.classList.add('open'); }, 10);
+});
+
+function closeContactModal() {
+    contactModal.classList.remove('open');
+    setTimeout(() => { contactModal.style.display = 'none'; }, 500);
+}
+
+contactModalClose.addEventListener('click', closeContactModal);
+contactModal.addEventListener('click', (e) => {
+    if (e.target === contactModal) closeContactModal();
+});
+
+/* Execute Contact Modal Email Dispatch */
+contactSubmit.addEventListener('click', () => {
+    dispatchEmail('contact-name', 'contact-email', 'contact-msg', 'Portfolio Inquiry: ');
+    closeContactModal();
+});
+
 
 /* ── Main Content Logic (Executed after unlock) ── */
-// Restored 30 items for 3-row display while maintaining category data
 const projects = [
-  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Contributed to the groundbreaking multi-style comic book pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles.' },
-  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositing Supervisor', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature.' },
-  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic blending illustrated overlays seamlessly.' },
-  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', studioFull: 'DreamWorks Animation', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Expressionistic 2D-influenced style within a primarily CG pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Integrating rich color palettes with complex interactive lighting.' },
-  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', studioFull: 'SPA Studios', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Revolutionary 2D-with-volume lighting pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Established core compositing conventions for the studio.' },
-  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', studioFull: 'Weta Digital', role: 'VFX Compositor', category: 'VFX Comp', desc: 'Final composite integration of CG environments and characters with stereo-acquired plate photography.' },
-  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', studioFull: 'Personal Portfolio', role: 'Compositing Supervisor', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work.' },
-  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Contributed to the groundbreaking multi-style comic book pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles.' },
-  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositing Supervisor', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature.' },
-  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic blending illustrated overlays seamlessly.' },
-  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', studioFull: 'DreamWorks Animation', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Expressionistic 2D-influenced style within a primarily CG pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Integrating rich color palettes with complex interactive lighting.' },
-  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', studioFull: 'SPA Studios', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Revolutionary 2D-with-volume lighting pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Established core compositing conventions for the studio.' },
-  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', studioFull: 'Weta Digital', role: 'VFX Compositor', category: 'VFX Comp', desc: 'Final composite integration of CG environments and characters with stereo-acquired plate photography.' },
-  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', studioFull: 'Personal Portfolio', role: 'Compositing Supervisor', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work.' },
-  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Contributed to the groundbreaking multi-style comic book pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles.' },
-  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositing Supervisor', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature.' },
-  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic blending illustrated overlays seamlessly.' },
-  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', studioFull: 'DreamWorks Animation', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Expressionistic 2D-influenced style within a primarily CG pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Integrating rich color palettes with complex interactive lighting.' },
-  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', studioFull: 'SPA Studios', role: 'VFX Compositor', category: 'Feature Animation', desc: 'Revolutionary 2D-with-volume lighting pipeline.' },
-  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', studioFull: 'Sony Pictures Animation', role: 'Compositor', category: 'Feature Animation', desc: 'Established core compositing conventions for the studio.' },
-  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', studioFull: 'Weta Digital', role: 'VFX Compositor', category: 'VFX Comp', desc: 'Final composite integration of CG environments and characters with stereo-acquired plate photography.' },
-  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', studioFull: 'Personal Portfolio', role: 'Compositing Supervisor', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work.' }
+  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', category: 'Feature Animation', desc: 'Academy Award-winning animated feature. Contributed to the groundbreaking multi-style comic book pipeline — integrating halftone, offset-print, and hand-drawn aesthetics within a unified Nuke compositing framework.' },
+  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles. Compositing work centered on cross-dimensional sequences requiring precise style-boundary integration.' },
+  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature. Developed a Nuke-based pipeline honoring the visual language of Korean pop culture.' },
+  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic demanded unconventional comp techniques to maintain a hand-crafted look at scale, blending illustrated overlays seamlessly with CG environments.' },
+  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', category: 'Feature Animation', desc: 'Compositing contributions to the award-winning sequel. The expressionistic 2D-influenced style required developing paint-hold and smear frame techniques within a primarily CG pipeline.' },
+  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', category: 'Feature Animation', desc: 'Compositing work focused on vibrant tropical environment sequences and high-energy musical performance shots, integrating rich color palettes with complex interactive lighting.' },
+  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', category: 'Feature Animation', desc: 'Academy Award-nominated feature introducing a revolutionary 2D-with-volume lighting pipeline. Compositing work focused on preserving the painterly quality of the hand-drawn lighting model.' },
+  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', category: 'Feature Animation', desc: 'Early Sony Pictures Animation feature where core compositing conventions for the studio\'s stylized look were established. Focused on atmospheric effects and creature-heavy sequences.' },
+  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', category: 'VFX Comp', desc: 'VFX Compositor on James Cameron\'s landmark production. Contributed to the live-action stereoscopic pipeline, with primary work on final composite integration of CG environments.' },
+  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work spanning native-stereo 8K cleanup, depth-plane integration for head-mounted display delivery, and pipeline development.' },
+  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', category: 'Feature Animation', desc: 'Academy Award-winning animated feature. Contributed to the groundbreaking multi-style comic book pipeline — integrating halftone, offset-print, and hand-drawn aesthetics within a unified Nuke compositing framework.' },
+  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles. Compositing work centered on cross-dimensional sequences requiring precise style-boundary integration.' },
+  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature. Developed a Nuke-based pipeline honoring the visual language of Korean pop culture.' },
+  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic demanded unconventional comp techniques to maintain a hand-crafted look at scale, blending illustrated overlays seamlessly with CG environments.' },
+  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', category: 'Feature Animation', desc: 'Compositing contributions to the award-winning sequel. The expressionistic 2D-influenced style required developing paint-hold and smear frame techniques within a primarily CG pipeline.' },
+  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', category: 'Feature Animation', desc: 'Compositing work focused on vibrant tropical environment sequences and high-energy musical performance shots, integrating rich color palettes with complex interactive lighting.' },
+  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', category: 'Feature Animation', desc: 'Academy Award-nominated feature introducing a revolutionary 2D-with-volume lighting pipeline. Compositing work focused on preserving the painterly quality of the hand-drawn lighting model.' },
+  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', category: 'Feature Animation', desc: 'Early Sony Pictures Animation feature where core compositing conventions for the studio\'s stylized look were established. Focused on atmospheric effects and creature-heavy sequences.' },
+  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', category: 'VFX Comp', desc: 'VFX Compositor on James Cameron\'s landmark production. Contributed to the live-action stereoscopic pipeline, with primary work on final composite integration of CG environments.' },
+  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work spanning native-stereo 8K cleanup, depth-plane integration for head-mounted display delivery, and pipeline development.' },
+  { video: 'https://www.youtube.com/watch?v=g4Hbz2jLxvQ', title: 'Spider-Man: Into the Spider-Verse', cardTitle: 'Into the Spider-Verse', poster: 'poster01.jpg', category: 'Feature Animation', desc: 'Academy Award-winning animated feature. Contributed to the groundbreaking multi-style comic book pipeline — integrating halftone, offset-print, and hand-drawn aesthetics within a unified Nuke compositing framework.' },
+  { video: 'https://www.youtube.com/watch?v=cqGjhVJWtEg', title: 'Spider-Man: Across the Spider-Verse', cardTitle: 'Across the Spider-Verse', poster: 'poster02.jpg', category: 'Feature Animation', desc: 'Expanded the Spider-Verse visual language across six dimension-specific animation styles. Compositing work centered on cross-dimensional sequences requiring precise style-boundary integration.' },
+  { video: 'https://www.youtube.com/watch?v=TbQm5doF_Uc', title: 'K-Pop Demon Hunters', cardTitle: 'K-Pop Demon Hunters', poster: 'poster03.jpg', category: 'Feature Animation', desc: 'Led the compositing department as Supervisor on this culturally authentic K-Pop animated feature. Developed a Nuke-based pipeline honoring the visual language of Korean pop culture.' },
+  { video: 'https://www.youtube.com/watch?v=5Gb6-1V3kNI', title: 'The Mitchells vs. the Machines', cardTitle: 'Mitchells vs. Machines', poster: 'poster04.jpg', category: 'Feature Animation', desc: 'Hybrid 2D/CG aesthetic demanded unconventional comp techniques to maintain a hand-crafted look at scale, blending illustrated overlays seamlessly with CG environments.' },
+  { video: 'https://www.youtube.com/watch?v=m2pSy0hPOBQ', title: 'Puss in Boots: The Last Wish', cardTitle: 'Puss in Boots: The Last Wish', poster: 'poster05.jpg', category: 'Feature Animation', desc: 'Compositing contributions to the award-winning sequel. The expressionistic 2D-influenced style required developing paint-hold and smear frame techniques within a primarily CG pipeline.' },
+  { video: 'https://www.youtube.com/watch?v=y_4h4D2BQUI', title: 'Vivo', cardTitle: 'Vivo', poster: 'poster06.jpg', category: 'Feature Animation', desc: 'Compositing work focused on vibrant tropical environment sequences and high-energy musical performance shots, integrating rich color palettes with complex interactive lighting.' },
+  { video: 'https://www.youtube.com/watch?v=HwUKDzAoDgs', title: 'Klaus', cardTitle: 'Klaus', poster: 'poster07.jpg', category: 'Feature Animation', desc: 'Academy Award-nominated feature introducing a revolutionary 2D-with-volume lighting pipeline. Compositing work focused on preserving the painterly quality of the hand-drawn lighting model.' },
+  { video: 'https://www.youtube.com/watch?v=5SuoTp9TROU', title: 'Hotel Transylvania', cardTitle: 'Hotel Transylvania', poster: 'poster08.jpg', category: 'Feature Animation', desc: 'Early Sony Pictures Animation feature where core compositing conventions for the studio\'s stylized look were established. Focused on atmospheric effects and creature-heavy sequences.' },
+  { video: 'https://www.youtube.com/watch?v=TEHWDA_6e3M', title: 'Avatar', cardTitle: 'Avatar', poster: 'poster09.jpg', category: 'VFX Comp', desc: 'VFX Compositor on James Cameron\'s landmark production. Contributed to the live-action stereoscopic pipeline, with primary work on final composite integration of CG environments.' },
+  { video: 'https://vimeo.com/905584986', title: 'Stereoscopic & Immersive Reel', cardTitle: 'Stereoscopic Reel', poster: 'poster10.jpg', category: 'Stereoscopic & Immersive', desc: 'Curated reel of stereoscopic and immersive compositing work spanning native-stereo 8K cleanup, depth-plane integration for head-mounted display delivery, and pipeline development.' }
 ];
 
 const gridEl = document.getElementById('grid');
@@ -1051,6 +1129,7 @@ projects.forEach((p, i) => {
   const div = document.createElement('div');
   div.className = 'card';
   div.dataset.index = i;
+  div.dataset.category = p.category;
   div.innerHTML = `
     <img src="assets/posters/${p.poster}" alt="Poster" loading="lazy">
     <div class="card-overlay">
@@ -1128,8 +1207,6 @@ const lb      = document.getElementById('lightbox');
 const lbVideo = document.getElementById('lb-video-container'); 
 const lbName  = document.getElementById('lb-name');
 const lbDescTitle = document.getElementById('lb-desc-title');
-const lbRole  = document.getElementById('lb-role');
-const lbStudio= document.getElementById('lb-studio');
 const lbBody  = document.getElementById('lb-desc-body');
 const lbClose = document.getElementById('lb-close');
 
@@ -1157,8 +1234,6 @@ function openLB(idx) {
   lbVideo.innerHTML = `<iframe src="${src}" allow="autoplay;fullscreen" allowfullscreen></iframe>`;
   lbName.textContent = p.title;
   lbDescTitle.textContent = p.title + " Details";
-  lbRole.textContent = p.role || 'N/A';
-  lbStudio.textContent = p.studioFull || 'N/A';
   lbBody.textContent = p.desc || 'No description available.';
   
   cards.forEach(c => c.classList.remove('lb-active'));
