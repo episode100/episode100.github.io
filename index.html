@@ -18,7 +18,7 @@
       --dim:    #86868b; 
       --border: rgba(255,255,255,0.08);
       --hh:     56px;
-      --gap:    6px; /* 10개가 한 줄에 들어가므로 간격을 조금 더 줄였습니다 */
+      --gap:    4px; /* 크기 축소에 맞춰 간격 축소 */
       --pad:    52px;
     }
 
@@ -97,3 +97,601 @@
       display: block;
       font-size: 0.7rem;
       font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 20px;
+    }
+
+    /* ─── WORK (10 포스터 배열, 사이즈 50% 축소) ─── */
+    #work { padding-top: 56px; }
+
+    .work-hdr {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 0 var(--gap) 18px;
+      max-width: 900px; /* 기존 1800px에서 50% 축소 */
+      margin: 0 auto;
+    }
+    .work-count {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr); 
+      gap: var(--gap);
+      padding: 0 var(--gap) var(--gap);
+      max-width: 900px; /* 전체 너비 제한으로 이미지 사이즈 물리적 축소 */
+      margin: 0 auto;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: #111;
+      border-radius: 2px; 
+    }
+    .card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9 / 13;
+      object-fit: cover;
+      filter: grayscale(100%); 
+      transition: transform .72s cubic-bezier(.22,1,.36,1), filter .5s ease;
+    }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.4) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity .4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6px 4px; /* 카드 축소에 맞춘 패딩 조절 */
+      gap: 2px;
+    }
+    
+    .card-studio, .card-meta {
+      transform: translateY(8px);
+      transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .card-studio {
+      font-size: 0.35rem; 
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+      display: none; /* 크기가 너무 작아져 시각적 깔끔함을 위해 스튜디오 이름 숨김 */
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px;
+    }
+    .card-title {
+      font-size: 0.45rem; /* 글꼴 크기 대폭 축소 */
+      font-weight: 500;
+      letter-spacing: 0;
+      color: rgba(255,255,255,.95);
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .play-ring {
+      width: 14px; height: 14px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+    .play-ring svg { width:5px; height:5px; fill:rgba(255,255,255,.92); margin-left:1px; }
+
+    .card:hover img          { transform: scale(1.15); filter: grayscale(0%); }
+    .card:hover .card-overlay{ opacity: 1; }
+    .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
+    .card:hover .play-ring   { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.9); }
+    .card:focus-visible      { outline: 1px solid #2997ff; outline-offset: 1px; z-index:1; }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--bg2);
+      border-top: 0.5px solid var(--border);
+      padding: 100px 0 120px;
+    }
+    .about-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .about-hl {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      color: var(--fg);
+      margin-bottom: 52px;
+    }
+    .about-hl em { color: var(--muted); font-weight: 400; }
+
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 80px;
+      align-items: center;
+    }
+    .about-p {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #222;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-credits { border-top: 0.5px solid var(--border); padding-top: 40px; }
+    .credits-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 28px;
+    }
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 16px;
+      column-gap: 24px;
+    }
+    .credit { display: flex; align-items: baseline; gap: 10px; }
+    .credit-film { font-size: 0.9rem; font-weight: 500; color: var(--fg); }
+    .credit-role { font-size: 0.8rem; color: var(--muted); }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--bg);
+      border-top: 0.5px solid var(--border);
+      padding: 100px 0 120px;
+    }
+    .contact-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .contact-hl {
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.04em;
+      margin-bottom: 72px;
+    }
+    .contact-tiles {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ctile {
+      border-right: 0.5px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(255,255,255,0.02);
+      transition: background 0.3s;
+    }
+    .ctile:hover { background: rgba(255,255,255,0.04); }
+    .ctile:last-child { border-right: none; }
+    .ctile-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .ctile-val {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--fg);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    a.ctile-val:hover { color: #fff; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .foot { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color .2s; }
+    a.foot:hover { color: var(--fg); }
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .lightbox.open { opacity: 1; }
+    .lb-surface {
+      width: min(1440px,96vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .lb-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      color: var(--fg);
+    }
+    #lb-content iframe {
+      width: min(1440px,96vw);
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .lb-bar { display: flex; align-items: center; gap: 20px; }
+    .lb-close {
+      appearance: none;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--fg);
+      padding: 10px 32px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 20px;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .lb-esc { font-size: 0.65rem; color: var(--dim); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(5,1fr); }
+      .about-cols { grid-template-columns: 1fr; gap: 32px; }
+      .contact-tiles { grid-template-columns: 1fr; }
+      .ctile { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .ctile:last-child { border-bottom: none; }
+      :root { --pad: 28px; }
+    }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(3,1fr); gap: 4px; padding: 0 4px 4px; }
+      .credits-grid { grid-template-columns: 1fr; }
+      nav a { padding: 5px 10px; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo"><b>Jay Han</b> — VFX Compositor</a>
+  <nav id="nav">
+    <a href="#work"    data-sec="work">Work</a>
+    <a href="#about"   data-sec="about">About</a>
+    <a href="#contact" data-sec="contact">Contact</a>
+  </nav>
+</header>
+
+<section id="work">
+  <div class="work-hdr r">
+    <span class="eyebrow" style="margin:0;">Selected Work</span>
+    <span class="work-count">20 Films</span>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Across Spider</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
+      <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
+      <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Mitchells</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
+      <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
+      <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
+      <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
+      <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Hotel Transyl</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
+      <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
+      <img src="assets/posters/poster10.jpg" alt="Poster 10" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+
+    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster01.jpg" alt="Poster 11" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Spider-Verse</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster02.jpg" alt="Poster 12" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Across Spider</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
+      <img src="assets/posters/poster03.jpg" alt="Poster 13" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Demon Hunters</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
+      <img src="assets/posters/poster04.jpg" alt="Poster 14" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Mitchells</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
+      <img src="assets/posters/poster05.jpg" alt="Poster 15" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Puss in Boots</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
+      <img src="assets/posters/poster06.jpg" alt="Poster 16" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Vivo</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
+      <img src="assets/posters/poster07.jpg" alt="Poster 17" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Klaus</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania" tabindex="0" role="button">
+      <img src="assets/posters/poster08.jpg" alt="Poster 18" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Hotel Transyl</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
+      <img src="assets/posters/poster09.jpg" alt="Poster 19" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 09</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
+      <img src="assets/posters/poster10.jpg" alt="Poster 20" loading="lazy">
+      <div class="card-overlay"><div class="card-meta"><span class="card-title">Project 10</span><div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-wrap">
+    <span class="eyebrow r">About</span>
+    <h2 class="about-hl r">
+      20 years of visual effects.<br>
+      <em style="display:block; margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
+    </h2>
+    <div class="about-cols">
+      <div class="about-text r">
+        <p class="about-p">
+          Jay Han is a Compositing Supervisor based in Vancouver with two decades
+          of experience in Hollywood VFX and feature animation. His work spans
+          Academy Award–winning productions including Spider-Man: Into the Spider-Verse
+          and Avatar.
+        </p>
+        <p class="about-p">
+          Beyond the studio, Jay teaches digital compositing and actively contributes
+          to the VFX community, presenting at SIGGRAPH Asia on the intersection of cultural storytelling
+          and next-generation pipeline techniques.
+        </p>
+      </div>
+      <div class="about-img r" style="transition-delay:.1s">
+        <img src="assets/posters/poster01.jpg" alt="Jay Han Workspace" loading="lazy">
+      </div>
+    </div>
+    
+    <div class="about-credits r">
+      <p class="credits-label">Selected Credits</p>
+      <div class="credits-grid">
+        <div class="credit">
+          <span class="credit-film">Spider-Man: Into the Spider-Verse</span>
+          <span class="credit-role">Compositor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">Avatar</span>
+          <span class="credit-role">VFX Compositor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">K-Pop Demon Hunters</span>
+          <span class="credit-role">Compositing Supervisor</span>
+        </div>
+        <div class="credit">
+          <span class="credit-film">SIGGRAPH Asia 2025</span>
+          <span class="credit-role">Presenter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-wrap">
+    <span class="eyebrow r">Contact</span>
+    <h2 class="contact-hl r">Let's work<br>together.</h2>
+    <div class="contact-tiles rs">
+      <div class="ctile">
+        <span class="ctile-label">Email</span>
+        <a href="mailto:hello@jayhan.com" class="ctile-val">hello@jayhan.com</a>
+      </div>
+      <div class="ctile">
+        <span class="ctile-label">LinkedIn</span>
+        <a href="https://linkedin.com/in/jayhan" target="_blank" rel="noopener" class="ctile-val">linkedin.com/in/jayhan</a>
+      </div>
+      <div class="ctile">
+        <span class="ctile-label">Location</span>
+        <span class="ctile-val">Vancouver, BC · Canada</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot">&copy; 2026 Jay Han. All rights reserved.</span>
+  <a href="#" class="foot">Back to top ↑</a>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lb-surface" role="dialog" aria-modal="true">
+    <p class="lb-name" id="lb-name"></p>
+    <div id="lb-content"></div>
+    <div class="lb-bar">
+      <button class="lb-close" id="lb-close">Close</button>
+      <span class="lb-esc">Esc to close</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── NAV: scroll + active highlight ── */
+const navLinks = document.querySelectorAll('nav a[data-sec]');
+
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector('#' + a.dataset.sec)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+/* 수정부분: 문법 오류를 제거하고 정상적인 IIFE로 옵저버 실행 복구 */
+(function(){
+  const sio = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === en.target.id));
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('section[id]').forEach(s => sio.observe(s));
+})();
+
+/* ── SCROLL REVEAL ── */
+const rio = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('vis');
+    rio.unobserve(en.target);
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+document.querySelectorAll('.r, .rs').forEach(el => rio.observe(el));
+
+/* ── LIGHTBOX ── */
+const lb      = document.getElementById('lightbox');
+const lbCon   = document.getElementById('lb-content');
+const lbName  = document.getElementById('lb-name');
+const lbClose = document.getElementById('lb-close');
+
+function toEmbed(url) {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    const h = u.hostname;
+    if (h.includes('youtu.be'))
+      return 'https://www.youtube.com/embed/' + u.pathname.slice(1).split(/[?&#]/)[0];
+    if (h.includes('youtube.com')) {
+      if (u.pathname.includes('/watch') && u.searchParams.get('v'))
+        return 'https://www.youtube.com/embed/' + u.searchParams.get('v');
+      if (u.pathname.includes('/shorts/'))
+        return 'https://www.youtube.com/embed/' + u.pathname.split('/shorts/')[1].split(/[?&#]/)[0];
+      if (u.pathname.includes('/embed/')) return url;
+    }
+    if (h.includes('vimeo.com')) {
+      if (h === 'player.vimeo.com') return url;
+      return 'https://player.vimeo.com/video/' + u.pathname.split('/').filter(Boolean)[0];
+    }
+  } catch(e) {}
+  return url;
+}
+
+function openLB(rawUrl, title) {
+  let src = toEmbed(rawUrl);
+  if (src) src += (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&modestbranding=1&playsinline=1&title=0&byline=0&portrait=0';
+  lbCon.innerHTML = '<iframe src="' + src + '" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';
+  lbName.textContent = title || '';
+  lb.setAttribute('aria-hidden', 'false');
+  document.documentElement.style.overflow = 'hidden';
+  lb.style.display = 'flex';
+  requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('open')));
+}
+
+function closeLB() {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+  setTimeout(() => {
+    lb.style.display = '';
+    lbCon.innerHTML = '';
+    lbName.textContent = '';
+    document.documentElement.style.overflow = '';
+  }, 320);
+}
+
+document.getElementById('grid').addEventListener('click', e => {
+  const c = e.target.closest('.card');
+  if (c) openLB(c.dataset.video, c.dataset.title);
+});
+document.getElementById('grid').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const c = e.target.closest('.card');
+  if (!c) return;
+  e.preventDefault();
+  openLB(c.dataset.video, c.dataset.title);
+});
+lbClose.addEventListener('click', closeLB);
+lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+window.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLB(); });
+</script>
+</body>
+</html>
