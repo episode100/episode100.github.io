@@ -4,30 +4,37 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Jay Han — VFX Compositor</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg:     #000000;
-      --bg2:    #0a0a0a;
-      --fg:     #f5f5f7;
-      --muted:  #6e6e73;
-      --dim:    #3a3a3c;
-      --border: rgba(255,255,255,0.07);
+      /* 접근성 향상: 눈이 편안한 다크 모드 색상 (Apple 표준 참고) */
+      --bg:     #0c0c0c; 
+      --bg2:    #151515;
+      --fg:     #f5f5f7; 
+      --muted:  #a1a1a6; 
+      --dim:    #86868b; 
+      --border: rgba(255,255,255,0.08);
       --hh:     56px;
-      --gap:    4px;
+      --gap:    8px; /* 카드가 5개로 늘어나 여백을 약간 조정 */
       --pad:    52px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    
     body {
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Apple Vision Pro 스타일 폰트 스택 */
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--fg);
       padding-top: var(--hh);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.015em; /* Apple 특유의 자간 */
     }
 
     /* ─── HEADER ─── */
@@ -35,7 +42,7 @@
       position: fixed;
       inset: 0 0 auto 0;
       height: var(--hh);
-      background: rgba(0,0,0,0.82);
+      background: rgba(12,12,12,0.75);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 0.5px solid var(--border);
@@ -44,31 +51,31 @@
       justify-content: space-between;
       padding: 0 28px;
       z-index: 300;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* 헤더 가독성 보강 */
     }
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
+      font-weight: 600;
       font-size: 1.15rem;
-      letter-spacing: 0.05em;
+      letter-spacing: -0.02em;
       color: var(--fg);
       text-decoration: none;
-      font-style: italic;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* 텍스트 가독성 보강 */
     }
-    .logo b { font-style: normal; font-weight: 400; }
-    nav { display: flex; gap: 2px; }
+    .logo b { font-weight: 700; color: #fff; }
+    nav { display: flex; gap: 4px; }
     nav a {
       display: block;
       padding: 6px 14px;
-      font-size: 0.74rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      font-size: 0.78rem;
+      font-weight: 500;
       color: var(--muted);
       text-decoration: none;
       border-radius: 5px;
       transition: color .2s, background .2s;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
     nav a:hover  { color: var(--fg); }
-    nav a.active { color: var(--fg); background: rgba(255,255,255,0.07); }
+    nav a.active { color: var(--fg); background: rgba(255,255,255,0.1); }
 
     /* ─── REVEAL ANIMATIONS ─── */
     .r {
@@ -86,21 +93,19 @@
     .rs.vis > *:nth-child(1) { opacity:1; transform:none; transition-delay:.00s; }
     .rs.vis > *:nth-child(2) { opacity:1; transform:none; transition-delay:.08s; }
     .rs.vis > *:nth-child(3) { opacity:1; transform:none; transition-delay:.16s; }
-    .rs.vis > *:nth-child(4) { opacity:1; transform:none; transition-delay:.24s; }
-    .rs.vis > *:nth-child(5) { opacity:1; transform:none; transition-delay:.32s; }
 
     /* ─── COMMON ─── */
     .eyebrow {
       display: block;
-      font-size: 0.65rem;
-      font-weight: 400;
-      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--dim);
       margin-bottom: 20px;
     }
 
-    /* ─── WORK ─── */
+    /* ─── WORK (5 포스터 배열) ─── */
     #work { padding-top: 56px; }
 
     .work-hdr {
@@ -110,24 +115,26 @@
       padding: 0 var(--gap) 18px;
     }
     .work-count {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--dim);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--muted);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
       gap: var(--gap);
       padding: 0 var(--gap) var(--gap);
     }
 
-    /* ─── CARD ─── */
+    /* ─── CARD (호버 다이내믹스 개선) ─── */
     .card {
       position: relative;
       cursor: pointer;
       overflow: hidden;
       background: #111;
+      border-radius: 4px; /* 살짝 둥근 모서리로 현대적 느낌 부여 */
     }
     .card img {
       width: 100%;
@@ -139,20 +146,28 @@
     .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.80) 0%, rgba(0,0,0,.18) 42%, transparent 68%);
+      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 40%, transparent 100%);
       opacity: 0;
       transition: opacity .4s ease;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 20px 18px;
-      gap: 5px;
+      padding: 16px 14px;
+      gap: 6px;
     }
+    
+    /* 호버 시 떠오르는 효과를 위해 기본 상태에서 아래로 이동 */
+    .card-studio, .card-meta {
+      transform: translateY(12px);
+      transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
     .card-studio {
-      font-size: 0.58rem;
-      letter-spacing: 0.13em;
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.4);
+      color: rgba(255,255,255,.6);
     }
     .card-meta {
       display: flex;
@@ -161,31 +176,34 @@
       gap: 8px;
     }
     .card-title {
-      font-size: 0.78rem;
-      letter-spacing: 0.02em;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0;
       color: rgba(255,255,255,.95);
-      font-weight: 400;
+      line-height: 1.2;
     }
     .play-ring {
-      width: 30px; height: 30px;
+      width: 26px; height: 26px;
       border: 1px solid rgba(255,255,255,.4);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       transition: background .2s, border-color .2s;
     }
-    .play-ring svg { width:8px; height:8px; fill:rgba(255,255,255,.92); margin-left:2px; }
+    .play-ring svg { width:7px; height:7px; fill:rgba(255,255,255,.92); margin-left:2px; }
 
-    .card:hover img          { transform: scale(1.04); }
+    .card:hover img          { transform: scale(1.05); }
     .card:hover .card-overlay{ opacity: 1; }
-    .card:hover .play-ring   { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.7); }
-    .card:focus-visible      { outline: 2px solid rgba(255,255,255,.45); outline-offset: -2px; z-index:1; }
+    /* 호버 시 요소들이 위로 떠오름 */
+    .card:hover .card-studio, .card:hover .card-meta { transform: translateY(0); }
+    .card:hover .play-ring   { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.8); }
+    .card:focus-visible      { outline: 2px solid #2997ff; outline-offset: 2px; z-index:1; }
 
-    /* ─── ABOUT ─── */
+    /* ─── ABOUT (시각화 개선) ─── */
     #about {
       background: var(--bg2);
       border-top: 0.5px solid var(--border);
-      padding: 120px 0 140px;
+      padding: 100px 0 120px;
     }
     .about-wrap {
       max-width: 1080px;
@@ -193,32 +211,50 @@
       padding: 0 var(--pad);
     }
     .about-hl {
-      font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+      font-size: clamp(2rem, 4vw, 3.6rem);
       font-weight: 600;
-      line-height: 1.08;
+      line-height: 1.1;
       letter-spacing: -.03em;
       color: var(--fg);
       margin-bottom: 52px;
     }
-    .about-hl em { font-style: normal; color: var(--muted); }
+    .about-hl em { color: var(--muted); font-weight: 400; }
 
     .about-cols {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 60px;
       margin-bottom: 80px;
+      align-items: center;
     }
     .about-p {
-      font-size: 1.02rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: rgba(245,245,247,.65);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    
+    /* 프로필 이미지 영역 신설 */
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #222;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .about-credits { border-top: 0.5px solid var(--border); padding-top: 40px; }
     .credits-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--dim);
       margin-bottom: 28px;
@@ -230,14 +266,14 @@
       column-gap: 24px;
     }
     .credit { display: flex; align-items: baseline; gap: 10px; }
-    .credit-film { font-size: 0.85rem; font-weight: 500; color: var(--fg); }
-    .credit-role { font-size: 0.73rem; color: var(--muted); }
+    .credit-film { font-size: 0.9rem; font-weight: 500; color: var(--fg); }
+    .credit-role { font-size: 0.8rem; color: var(--muted); }
 
     /* ─── CONTACT ─── */
     #contact {
       background: var(--bg);
       border-top: 0.5px solid var(--border);
-      padding: 120px 0 140px;
+      padding: 100px 0 120px;
     }
     .contact-wrap {
       max-width: 1080px;
@@ -245,56 +281,64 @@
       padding: 0 var(--pad);
     }
     .contact-hl {
-      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
       font-weight: 700;
-      line-height: .98;
-      letter-spacing: -.035em;
+      line-height: 1;
+      letter-spacing: -.04em;
       margin-bottom: 72px;
     }
     .contact-tiles {
       display: grid;
       grid-template-columns: repeat(3,1fr);
       border: 0.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
     }
     .ctile {
       border-right: 0.5px solid var(--border);
-      padding: 32px 28px;
+      padding: 36px 32px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      background: rgba(255,255,255,0.02);
+      transition: background 0.3s;
     }
+    .ctile:hover { background: rgba(255,255,255,0.04); }
     .ctile:last-child { border-right: none; }
     .ctile-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--dim);
     }
     .ctile-val {
-      font-size: 0.98rem;
-      font-weight: 400;
+      font-size: 1.05rem;
+      font-weight: 500;
       color: var(--fg);
       text-decoration: none;
       transition: color .2s;
     }
-    a.ctile-val:hover { color: var(--muted); }
+    a.ctile-val:hover { color: #fff; }
 
     /* ─── FOOTER ─── */
     footer {
       border-top: 0.5px solid var(--border);
-      padding: 28px 28px;
+      padding: 32px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .foot { font-size: 0.65rem; letter-spacing: .05em; color: var(--dim); text-decoration: none; transition: color .2s; }
-    a.foot:hover { color: var(--muted); }
+    .foot { font-size: 0.75rem; color: var(--dim); text-decoration: none; transition: color .2s; }
+    a.foot:hover { color: var(--fg); }
 
     /* ─── LIGHTBOX ─── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.97);
+      background: rgba(0,0,0,.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -311,58 +355,61 @@
       gap: 20px;
     }
     .lb-name {
-      font-size: 0.62rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.2);
-      font-style: italic;
-      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      color: var(--fg);
     }
     #lb-content iframe {
       width: min(1440px,96vw);
       aspect-ratio: 16/9;
       border: none;
       display: block;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
     .lb-bar { display: flex; align-items: center; gap: 20px; }
     .lb-close {
       appearance: none;
-      background: transparent;
-      border: 0.5px solid rgba(255,255,255,.2);
-      color: rgba(255,255,255,.5);
-      padding: 8px 28px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--fg);
+      padding: 10px 32px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 20px;
+      letter-spacing: .05em;
       cursor: pointer;
-      transition: border-color .2s, color .2s;
+      transition: background .2s, transform .2s;
     }
-    .lb-close:hover { border-color: rgba(255,255,255,.55); color: var(--fg); }
-    .lb-esc { font-size: 0.58rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.18); }
+    .lb-close:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .lb-esc { font-size: 0.65rem; color: var(--dim); }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(4,1fr); }
+    }
     @media (max-width: 960px) {
-      .grid          { grid-template-columns: repeat(2,1fr); }
-      .about-cols    { grid-template-columns: 1fr; gap: 24px; }
+      .grid          { grid-template-columns: repeat(3,1fr); }
+      .about-cols    { grid-template-columns: 1fr; gap: 32px; }
       .contact-tiles { grid-template-columns: 1fr; }
       .ctile         { border-right: none; border-bottom: 0.5px solid var(--border); }
       .ctile:last-child { border-bottom: none; }
       :root { --pad: 28px; }
     }
-    @media (max-width: 580px) {
-      .grid          { grid-template-columns: 1fr; gap: 3px; padding: 0 3px 3px; }
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+      .grid          { grid-template-columns: 1fr; gap: 8px; padding: 0 8px 8px; }
       .credits-grid  { grid-template-columns: 1fr; }
-      .about-hl      { font-size: 2rem; }
-      .contact-hl    { font-size: 2.8rem; }
-      nav a          { padding: 5px 8px; font-size: 0.68rem; }
-      #about,#contact{ padding: 72px 0 80px; }
+      nav a          { padding: 5px 10px; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
 <header>
   <a href="#" class="logo"><b>Jay Han</b> — VFX Compositor</a>
   <nav id="nav">
@@ -372,22 +419,17 @@
   </nav>
 </header>
 
-<!-- ═══ WORK ═══ -->
 <section id="work">
   <div class="work-hdr r">
-    <span class="eyebrow" style="margin:0;">Selected Work — Sony Pictures Animation</span>
-    <span class="work-count">9 Films</span>
+    <span class="eyebrow" style="margin:0;">Selected Work</span>
+    <span class="work-count">10 Films</span>
   </div>
 
   <div class="grid" id="grid">
-
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ"
-      data-title="Spider-Man: Into the Spider-Verse"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/g4Hbz2jLxvQ/maxresdefault.jpg" alt="Spider-Man: Into the Spider-Verse" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=g4Hbz2jLxvQ" data-title="Spider-Man: Into the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster01.jpg" alt="Poster 1" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2018</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">Into the Spider-Verse</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -395,13 +437,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg"
-      data-title="Spider-Man: Across the Spider-Verse"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/cqGjhVJWtEg/maxresdefault.jpg" alt="Spider-Man: Across the Spider-Verse" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=cqGjhVJWtEg" data-title="Spider-Man: Across the Spider-Verse" tabindex="0" role="button">
+      <img src="assets/posters/poster02.jpg" alt="Poster 2" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2023</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">Across the Spider-Verse</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -409,13 +448,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc"
-      data-title="K-Pop Demon Hunters"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/TbQm5doF_Uc/maxresdefault.jpg" alt="K-Pop Demon Hunters" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=TbQm5doF_Uc" data-title="K-Pop Demon Hunters" tabindex="0" role="button">
+      <img src="assets/posters/poster03.jpg" alt="Poster 3" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2025</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">K-Pop Demon Hunters</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -423,13 +459,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI"
-      data-title="The Mitchells vs. the Machines"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/5Gb6-1V3kNI/maxresdefault.jpg" alt="The Mitchells vs. the Machines" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=5Gb6-1V3kNI" data-title="The Mitchells vs. the Machines" tabindex="0" role="button">
+      <img src="assets/posters/poster04.jpg" alt="Poster 4" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2021</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">The Mitchells vs. the Machines</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -437,13 +470,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ"
-      data-title="Puss in Boots: The Last Wish"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/m2pSy0hPOBQ/maxresdefault.jpg" alt="Puss in Boots: The Last Wish" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=m2pSy0hPOBQ" data-title="Puss in Boots: The Last Wish" tabindex="0" role="button">
+      <img src="assets/posters/poster05.jpg" alt="Poster 5" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">DreamWorks Animation · 2022</span>
+        <span class="card-studio">DreamWorks Animation</span>
         <div class="card-meta">
           <span class="card-title">Puss in Boots: The Last Wish</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -451,13 +481,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI"
-      data-title="Vivo"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/y_4h4D2BQUI/maxresdefault.jpg" alt="Vivo" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=y_4h4D2BQUI" data-title="Vivo" tabindex="0" role="button">
+      <img src="assets/posters/poster06.jpg" alt="Poster 6" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2021</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">Vivo</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -465,13 +492,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs"
-      data-title="Klaus"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/HwUKDzAoDgs/maxresdefault.jpg" alt="Klaus" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=HwUKDzAoDgs" data-title="Klaus" tabindex="0" role="button">
+      <img src="assets/posters/poster07.jpg" alt="Poster 7" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">The SPA Studios · 2019</span>
+        <span class="card-studio">The SPA Studios</span>
         <div class="card-meta">
           <span class="card-title">Klaus</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -479,13 +503,10 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=5SuoTp9TROU"
-      data-title="Hotel Transylvania: Transformania"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/5SuoTp9TROU/maxresdefault.jpg" alt="Hotel Transylvania: Transformania" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=5SuoTp9TROU" data-title="Hotel Transylvania: Transformania" tabindex="0" role="button">
+      <img src="assets/posters/poster08.jpg" alt="Poster 8" loading="lazy">
       <div class="card-overlay">
-        <span class="card-studio">Sony Pictures Animation · 2022</span>
+        <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
           <span class="card-title">Hotel Transylvania: Transformania</span>
           <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
@@ -493,11 +514,8 @@
       </div>
     </div>
 
-    <div class="card"
-      data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M"
-      data-title="Project 09"
-      tabindex="0" role="button">
-      <img src="https://img.youtube.com/vi/TEHWDA_6e3M/maxresdefault.jpg" alt="Project 09" loading="lazy">
+    <div class="card" data-video="https://www.youtube.com/watch?v=TEHWDA_6e3M" data-title="Project 09" tabindex="0" role="button">
+      <img src="assets/posters/poster09.jpg" alt="Poster 9" loading="lazy">
       <div class="card-overlay">
         <span class="card-studio">Sony Pictures Animation</span>
         <div class="card-meta">
@@ -507,31 +525,46 @@
       </div>
     </div>
 
+    <div class="card" data-video="https://vimeo.com/905584986" data-title="Project 10" tabindex="0" role="button">
+      <img src="assets/posters/poster10.jpg" alt="Poster 10" loading="lazy">
+      <div class="card-overlay">
+        <span class="card-studio">VFX Portfolio</span>
+        <div class="card-meta">
+          <span class="card-title">Project 10</span>
+          <div class="play-ring"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
 <section id="about">
   <div class="about-wrap">
     <span class="eyebrow r">About</span>
     <h2 class="about-hl r">
       20 years of visual effects.<br>
-      <em>Credits on some of the most<br>celebrated animated films ever made.</em>
+      <em style="display:block; margin-top:8px;">Credits on some of the most celebrated animated films ever made.</em>
     </h2>
     <div class="about-cols">
-      <p class="about-p r">
-        Jay Han is a Compositing Supervisor based in Vancouver with two decades
-        of experience in Hollywood VFX and feature animation. His work spans
-        Academy Award–winning productions including Spider-Man: Into the Spider-Verse
-        and Avatar — films that redefined what animation could look and feel like.
-      </p>
-      <p class="about-p r" style="transition-delay:.1s">
-        Beyond the studio, Jay teaches digital compositing and actively contributes
-        to the VFX community. In 2025 he presented on K-Pop Demon Hunters at
-        SIGGRAPH Asia, exploring the intersection of authentic cultural storytelling
-        and next-generation pipeline techniques.
-      </p>
+      <div class="about-text r">
+        <p class="about-p">
+          Jay Han is a Compositing Supervisor based in Vancouver with two decades
+          of experience in Hollywood VFX and feature animation. His work spans
+          Academy Award–winning productions including Spider-Man: Into the Spider-Verse
+          and Avatar.
+        </p>
+        <p class="about-p">
+          Beyond the studio, Jay teaches digital compositing and actively contributes
+          to the VFX community, presenting at SIGGRAPH Asia on the intersection of cultural storytelling
+          and next-generation pipeline techniques.
+        </p>
+      </div>
+      <div class="about-img r" style="transition-delay:.1s">
+        <img src="assets/posters/poster01.jpg" alt="Jay Han Workspace" loading="lazy">
+      </div>
     </div>
+    
     <div class="about-credits r">
       <p class="credits-label">Selected Credits</p>
       <div class="credits-grid">
@@ -556,7 +589,6 @@
   </div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <div class="contact-wrap">
     <span class="eyebrow r">Contact</span>
@@ -578,13 +610,11 @@
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
 <footer>
-  <span class="foot">&copy; 2025 Jay Han. All rights reserved.</span>
+  <span class="foot">&copy; 2026 Jay Han. All rights reserved.</span>
   <a href="#" class="foot">Back to top ↑</a>
 </footer>
 
-<!-- ═══ LIGHTBOX ═══ -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <div class="lb-surface" role="dialog" aria-modal="true">
     <p class="lb-name" id="lb-name"></p>
